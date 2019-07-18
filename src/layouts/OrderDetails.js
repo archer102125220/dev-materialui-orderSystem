@@ -35,8 +35,10 @@ class OrderDetails extends React.Component {
       OderEditStateChange,
       OrderSelectItemChange,
       SetOrders,
+      PATCH_Orders,
+      SetState
     } = this.props;
-
+    
     return (
       <div className={classes.DetailBody}>
         <List className={classes.OredrTitle}>
@@ -60,6 +62,8 @@ class OrderDetails extends React.Component {
           SelectItemChange={OrderSelectItemChange}
           clear={true}
           SetOrders={SetOrders}
+          PATCH_Orders={PATCH_Orders}
+          SetState={SetState}
         />
         <Divider />
         <span className={classes.OrderCount} >
@@ -73,6 +77,10 @@ class OrderDetails extends React.Component {
       </div>
     );
   }
+}
+
+OrderDetails.defaultProps = {
+  orderDetail: [],
 }
 
 export default withStyles(styles)(OrderDetails);

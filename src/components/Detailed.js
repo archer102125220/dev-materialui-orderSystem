@@ -2,10 +2,12 @@ import React from 'react';
 import DetailedContent from '../components/DetailedContent';
 import DetailedOption from '../components/DetailedOption';
 import DetailedButton from '../components/DetailedButton';
+import MySnackbarContent from '../components/MySnackbarContent';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const CustomDialog = withStyles(theme => ({ //複寫material樣式
   paper: {
@@ -73,6 +75,8 @@ class Detailed extends React.Component {
       orders,
       OderEditStateChange,
       SelectItemChange,
+      PATCH_Orders,
+      SetState,
     } = this.props;
 
     const { tempItem } = this.state;
@@ -122,12 +126,13 @@ class Detailed extends React.Component {
       CancelActions = () => (window.confirm("確定要取消嗎?") === true) && StateChange(false)
       ,
       CompleteActions = () => {
+        StateChange(false);
         if (clear === false) {
           SetOrders(tempItem);
         } else {
-
+          PATCH_Orders(orders);
+          SetState({ open: true });
         }
-        StateChange(false);
       };
 
     return (

@@ -25,11 +25,13 @@ export function Get_orderList(orderListId, token) {
 }
 
 export function PATCH_orderList(orderListId, payload = {}, token) {
-    return fach('PATCH', `/order_list/${orderListId}`, payload, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-    });
+    // return fach('PATCH', `/order_list/${orderListId}`, payload, {
+    //     headers: {
+    //         Authorization: `Bearer ${token}`,
+    //     }
+    // });
+    console.log(payload);
+    
 }
 
 export function DELETE_orderList(orderListId, token) {

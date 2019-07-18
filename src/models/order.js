@@ -22,7 +22,7 @@ export default {
       });
     },
   },
-
+  //PATCH_orderList
   effects: {
     *DetailsStateChange({ payload }, { call, put }) {
       yield put({ type: 'details_state_save', payload });
@@ -35,6 +35,14 @@ export default {
     },
     *SelectItemChange({ payload }, { call, put }) {
       yield put({ type: 'select_id_save', payload });
+    },
+    *PATCH_Orders({ payload }, { call, put }) {
+      try {
+        yield call(order.PATCH_orderList, 1, payload);
+        yield put({ type: 'PATCH_save', payload: [] });
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 
@@ -89,6 +97,12 @@ export default {
       return {
         ...state,
         selectItem: payload
+      };
+    },
+    PATCH_save(state, { payload }) {
+      return {
+        ...state,
+        order: payload
       };
     },
   },

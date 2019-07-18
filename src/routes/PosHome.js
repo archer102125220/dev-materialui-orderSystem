@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import _ from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
 import Header from '../layouts/Header';
+import MySnackbarContent from '../components/MySnackbarContent';
 import OrderDetails from '../layouts/OrderDetails';
 import OrderEdit from '../layouts/OrderEdit';
 import MenuList from '../layouts/MenuList';
@@ -18,6 +19,27 @@ const styles = {
 };
 
 class PosHome extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      open: false
+    }
+  }
+
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ open: false });
+  };
+
+
+  SetState = (state) => {
+    this.setState(state);
+  }
+
   render() {
     const {
       classes,
@@ -36,7 +58,8 @@ class PosHome extends React.Component {
       OrderDetail,
       OderEditOpen,
       OderEditStateChange,
-      SetOrders
+      SetOrders,
+      PATCH_Orders
     } = this.props;
 
     return (
@@ -60,6 +83,8 @@ class PosHome extends React.Component {
           OderEditStateChange={OderEditStateChange}
           OrderSelectItemChange={OrderSelectItemChange}
           SetOrders={SetOrders}
+          PATCH_Orders={PATCH_Orders}
+          SetState={this.SetState}
         />
         <MenuDetail
           SetItems={SetItems}
@@ -77,6 +102,7 @@ class PosHome extends React.Component {
           Item={OrderSelectItem}
           SetOrders={SetOrders}
         />
+        <MySnackbarContent open={this.state.open} handleClose={this.handleClose} />
       </div>
     );
   }
@@ -102,6 +128,7 @@ const mapDispatchToProps = (dispatch) => ({
   OderEditStateChange: (payload) => dispatch({ type: 'order/EditStateChange', payload }),
   OrderSelectItemChange: (payload) => dispatch({ type: 'order/SelectItemChange', payload }),
   SetOrders: (payload) => dispatch({ type: 'order/SetOrders', payload }),
+  PATCH_Orders: (payload) => dispatch({ type: 'order/PATCH_Orders', payload }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PosHome));
