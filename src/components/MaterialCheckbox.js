@@ -29,7 +29,7 @@ class MaterialCheckbox extends React.Component {
 
     handleChange(valueName,name, Check) {
         this.setState({ [name]: Check }, () => {
-            this.props.ChangeValue({ [valueName]: Object.FilterToName(this.state,true) });
+            this.props.ChangeValue({ [valueName]: Object.FilterByName(this.state,true) });
         });
 
     };

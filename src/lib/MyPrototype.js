@@ -28,6 +28,17 @@ Array.prototype.RemoveBykey = function (removeKey) {
 Array.prototype.RemoveByValue = function (removeValue) {
     return this.filter(val => val !== removeValue);
 };
+Array.prototype.ArrayComparison = function (searchArray) {
+    if (this.length === 0 || searchArray.length === 0) {
+        return this.length === searchArray.length;
+    } else {
+        return this.every(val =>
+            searchArray.every(searchVal =>
+                val === searchVal
+            )
+        );
+    }
+};
 Math.RoundDecimal = function (value, amount) { //使 Math.round() 可依照 amount 的數值做進位
     var carry = 10;
     for (var i = 1; i < amount; i++) carry *= 10;
@@ -49,14 +60,14 @@ Math.CeilDecimal = function (value, amount) {//使 Math.ceil() 可依照 amount 
     value = value / carry;
     return value;
 }
-Object.FilterToValue = function (obj, search) {//Object的 Array.filter() ，由於寫在prototype會造成react執行錯誤，故需以 Object.filter(物件,比對值) 呼叫
+Object.FilterByValue = function (obj, search) {//Object的 Array.filter() ，由於寫在prototype會造成react執行錯誤，故需以 Object.filter(物件,比對值) 呼叫
     let RetArr = [];
     for (var key in obj) {
         if (obj[key] === search) RetArr.push(obj[key]);
     }
     return RetArr;
 }
-Object.FilterToName = function (obj, search) {//Object的 Array.filter() ，由於寫在prototype會造成react執行錯誤，故需以 Object.filter(物件,比對值) 呼叫
+Object.FilterByName = function (obj, search) {//Object的 Array.filter() ，由於寫在prototype會造成react執行錯誤，故需以 Object.filter(物件,比對值) 呼叫
     let RetArr = [];
     for (var key in obj) {
         if (obj[key] === search) RetArr.push(key);

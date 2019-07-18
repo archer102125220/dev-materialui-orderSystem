@@ -41,7 +41,9 @@ class PosHome extends React.Component {
     // console.log(this.props, "PosHome");
     return (
       <div className={classes.PosHome}>
-        <Header />
+        {
+          // <Header />
+        }
         <MenuList
           menuItems={MenuItems}
           tageid={Tageid}

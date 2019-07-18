@@ -5,19 +5,12 @@ import DetailedButton from '../components/DetailedButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const styles = theme => ({
-  dialog: {
-    witdh: "75%",
-  }
-});
 const CustomDialog = withStyles(theme => ({ //複寫material樣式
-  head: {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.common.white,
-  },
-  body: {
-      fontSize: 14,
+  paper: {
+    witdh: "75%",
+    maxWidth: "800px",
   },
 }))(Dialog);
 
@@ -97,14 +90,14 @@ class Detailed extends React.Component {
         clear === true ?
           "請確認訂單明細"
           :
-          "Loading...",
+          CircularProgress,
       description = (typeof (Item.description) !== "undefined") ?
         Item.description
         :
         clear === true ?
           ""
           :
-          "Loading...",
+          CircularProgress,
       cancel = `取消${edit === true ? '修改' : '訂單'}`,
       complete = (edit === true) ?
         '完成修改'
@@ -125,37 +118,34 @@ class Detailed extends React.Component {
         Item.special
         :
         [],
-      CancelActions = () => {
-        (window.confirm("確定要取消嗎?") === true) && StateChange(false)
-      },
+      CancelActions = () => (window.confirm("確定要取消嗎?") === true) && StateChange(false)
+      ,
       CompleteActions = () => {
-
         SetOrders(tempItem);
         StateChange(false);
       };
 
-
     return (
-      <Dialog open={open} className={classes.dialog} aria-labelledby="form-dialog-title" >
-          <DialogTitle id="form-dialog-title">{name}</DialogTitle>
-          {
-            clear ?
-              <DetailedContent description={description} types={types} special={special} />
-              :
-              <DetailedOption
-                description={description}
-                ItemCount={ItemCount}
-                ItemSpecial={ItemSpecial}
-                ItemClass={ItemClass}
-                types={types}
-                special={special}
-                tempItem={tempItem}
-                tempItemUpData={this.tempItemUpData}
-                SetStates={this.SetTempItem}
-              />
-          }
-          <DetailedButton cancel={cancel} complete={complete} CancelActions={CancelActions} CompleteActions={CompleteActions} />
-      </Dialog>
+      <CustomDialog open={open} aria-labelledby="form-dialog-title" >
+        <DialogTitle id="form-dialog-title">{name}</DialogTitle>
+        {
+          clear ?
+            <DetailedContent description={description} types={types} special={special} />
+            :
+            <DetailedOption
+              description={description}
+              ItemCount={ItemCount}
+              ItemSpecial={ItemSpecial}
+              ItemClass={ItemClass}
+              types={types}
+              special={special}
+              tempItem={tempItem}
+              tempItemUpData={this.tempItemUpData}
+              SetStates={this.SetTempItem}
+            />
+        }
+        <DetailedButton cancel={cancel} complete={complete} CancelActions={CancelActions} CompleteActions={CompleteActions} />
+      </CustomDialog>
     );
   }
 }
@@ -171,4 +161,4 @@ Detailed.defaultProps = {
   Item: {}
 }
 
-export default withStyles(styles)(Detailed);
+export default Detailed;

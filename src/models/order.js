@@ -7,36 +7,7 @@ export default {
 
   state: {
     detailsOpen: false,
-    order: [
-      {
-        name: "歐姆蛋",
-        class: "品項A吐司",
-        count: 3,
-        price: 50,
-        type: "品項A",
-        description: "歐姆蛋產品描述",
-        special: [
-          "品項A特需1",
-          "品項A特需2",
-          "品項A特需6",
-          "品項A特需7",
-        ]
-      },
-      {
-        name: "培根蛋",
-        class: "品項E漢堡",
-        count: 4,
-        price: 45,
-        type: "品項E",
-        description: "培根蛋產品描述",
-        special: [
-          "品項E特需1",
-          "品項E特需2",
-          "品項E特需5",
-          "品項E特需7",
-        ]
-      }
-    ],
+    order: [],
     selectItem: {},
     editOpen: false,
   },
@@ -79,22 +50,23 @@ export default {
         let ctrl = false;
         order = order.map(val => {
           if (val.type === payload.type &&
-              val.name === payload.name &&
-              val.class === payload.class &&
-              val.special === payload.special) {
+            val.name === payload.name &&
+            val.class === payload.class &&
+            val.special.ArrayComparison(payload.special)) { //ArrayComparison 自己定義的方法
             ctrl = true;
             payload.count = (payload.action === "add") ? payload.count + val.count : payload.count
-            payload.action = "";
             return payload;
           } else {
             return val;
           }
         });
+        payload.action = "";
         if (ctrl === false) order.push(payload);
       } else {
+        payload.action = "";
         order = payload;
       }
-      
+
       return {
         ...state,
         order

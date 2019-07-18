@@ -16,9 +16,6 @@ const CustomTableCell = withStyles(theme => ({ //複寫material樣式
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.common.white,
     },
-    body: {
-        fontSize: 14,
-    },
 }))(TableCell);
 
 const styles = theme => ({
@@ -34,6 +31,9 @@ const styles = theme => ({
         '&:nth-of-type(odd)': {
             backgroundColor: theme.palette.background.default,
         },
+    },
+    progress: {
+        margin: theme.spacing.unit * 2,
     },
 });
 
@@ -84,8 +84,6 @@ class DetailedContent extends React.Component {
 }
 
 DetailedContent.defaultProps = {
-    name: "Loading...",
-    description: "Loading...",
     types: {},
     special: []
 }
