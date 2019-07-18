@@ -38,7 +38,7 @@ class PosHome extends React.Component {
       OderEditStateChange,
       SetOrders
     } = this.props;
-    // console.log(this.props, "PosHome");
+
     return (
       <div className={classes.PosHome}>
         {

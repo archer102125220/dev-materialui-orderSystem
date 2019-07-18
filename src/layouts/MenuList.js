@@ -41,11 +41,6 @@ class MenuList extends React.Component {
         this.props.TageIdChange(index);
     };
 
-    // shouldComponentUpdate(nextProps) {
-    //     //react 生命週期 https://medium.com/@shihKai/react-js-%E5%85%83%E4%BB%B6%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E5%AD%B8%E7%BF%92-ff1a2fabb030
-    //     return nextProps !== this.props;
-    // }
-
     render() {
         const {
             classes,
@@ -55,7 +50,7 @@ class MenuList extends React.Component {
             StateChange,
             MenuSelectItemChange
         } = this.props;
-        // console.log(this.props, "MenuList");
+        
         return (
             <div className={classes.MenuBody}>
                 <div className={classes.root}>

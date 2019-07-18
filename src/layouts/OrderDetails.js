@@ -51,19 +51,23 @@ class OrderDetails extends React.Component {
             SetOrders={SetOrders}
           />
         </List>
+        {
+          console.log(orderDetail,"OD")
+        }
         <Detailed
           open={open}
           menuItems={menuItems}
-          orderDetail={orderDetail}
+          orders={orderDetail}
           StateChange={OrderDetailsStateChange}
           clear={true}
         />
+        <Divider />
         <span className={classes.OrderCount} >
           <List className={classes.OrderCount}>
-            ${orderDetail.reduce(((Previous, NowValue) => Previous + NowValue.count * NowValue.price), 0)}
+          總價：  ${orderDetail.reduce(((Previous, NowValue) => Previous + NowValue.count * NowValue.price), 0)}
           </List>
           <List className={classes.OrderCount}>
-            <Button variant="contained" color="primary" onClick={(e) => OrderDetailsStateChange(true)} >送出訂單</Button>
+            <Button variant="contained" disabled={orderDetail.length === 0} color="primary" onClick={(e) => OrderDetailsStateChange(true)} >送出訂單</Button>
           </List>
         </span>
       </div>

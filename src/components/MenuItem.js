@@ -36,7 +36,7 @@ class MenuItem extends React.Component {
             selectclass,
             orderType
         } = this.props;
-        // console.log(this.props,"MenuItem");
+        
         return (
             <div className={classes.MenuItemBody}>
                 {

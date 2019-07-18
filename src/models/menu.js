@@ -1,5 +1,5 @@
 
-import * as menuDetail from '../services/menuDetail';
+import * as menu from '../services/menu';
 import key from 'keymaster';
 
 export default {
@@ -31,7 +31,7 @@ export default {
       //方式三： const open = yield select(_ =>_.open)
       // console.log(open);
       try {
-        const items = yield call(menuDetail.Get_menuLists);
+        const items = yield call(menu.Get_menuLists);
         yield put({ type: 'items_save', payload: items });
       } catch (e) {
         console.log(e);

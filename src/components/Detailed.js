@@ -9,8 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const CustomDialog = withStyles(theme => ({ //複寫material樣式
   paper: {
-    witdh: "75%",
-    maxWidth: "800px",
+    maxWidth: "1300px",
   },
 }))(Dialog);
 
@@ -71,7 +70,7 @@ class Detailed extends React.Component {
       menuItems,
       clear,
       Item,
-      classes,
+      orders
     } = this.props;
 
     const { tempItem } = this.state;
@@ -121,7 +120,11 @@ class Detailed extends React.Component {
       CancelActions = () => (window.confirm("確定要取消嗎?") === true) && StateChange(false)
       ,
       CompleteActions = () => {
-        SetOrders(tempItem);
+        if (clear === false) {
+          SetOrders(tempItem);
+        } else {
+
+        }
         StateChange(false);
       };
 
@@ -130,7 +133,9 @@ class Detailed extends React.Component {
         <DialogTitle id="form-dialog-title">{name}</DialogTitle>
         {
           clear ?
-            <DetailedContent description={description} types={types} special={special} />
+            <DetailedContent
+              orderDetail={orders}
+              orderHeader={["餐點名稱", "特別需求", "數量", "總價", "操作"]} />
             :
             <DetailedOption
               description={description}
@@ -156,8 +161,8 @@ Detailed.defaultProps = {
   edit: false,
   StateChange: () => { },
   SetOrders: () => { },
-  menuItems: {},
-  orderDetail: {},
+  menuItems: [],
+  orderDetail: [],
   Item: {}
 }
 

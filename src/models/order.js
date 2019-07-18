@@ -1,4 +1,5 @@
 
+import * as order from '../services/order';
 import key from 'keymaster';
 
 export default {

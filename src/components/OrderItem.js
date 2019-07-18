@@ -22,7 +22,7 @@ const styles = theme => ({
 class OrderItem extends React.Component {
   render() {
     const { classes, StateChange, orderDetail, SelectItemChange, SetOrders } = this.props;
-    // console.log(this.props ,"OrderItem");
+    
     return (
       <div>
         {

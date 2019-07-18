@@ -11,7 +11,7 @@ class OrderEdit extends React.Component {
       Item,
       SetOrders,
     } = this.props;
-    // console.log(this.props, "OrderEdit");
+    
     return (
       <span>
         <Detailed
