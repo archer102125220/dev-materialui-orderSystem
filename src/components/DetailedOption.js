@@ -25,6 +25,9 @@ const styles = theme => ({
     },
     contentText: {
         width: "50%"
+    },
+    checkbox:{
+        maxWidth: "650px"
     }
 });
 
@@ -80,7 +83,7 @@ class DetailedOption extends React.Component {
                     />
                 </div>
                 <MaterialRadio label="請選擇特需..." CheckValue={types} DefCheck={ItemClass} valueName="class" ChangeValue={this.SetStates} />
-                <MaterialCheckbox label="請選擇類型..." CheckValue={special} DefCheck={ItemSpecial} valueName="special" ChangeValue={this.SetStates} />
+                <MaterialCheckbox className={classes.checkbox} label="請選擇類型..." CheckValue={special} DefCheck={ItemSpecial} valueName="special" ChangeValue={this.SetStates} />
             </DialogContent>
         );
     }

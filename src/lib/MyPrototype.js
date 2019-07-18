@@ -33,7 +33,7 @@ Array.prototype.ArrayComparison = function (searchArray) {
         return this.length === searchArray.length;
     } else {
         return this.every(val =>
-            searchArray.every(searchVal =>
+            searchArray.some(searchVal =>
                 val === searchVal
             )
         );

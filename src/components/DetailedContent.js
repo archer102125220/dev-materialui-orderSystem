@@ -49,9 +49,12 @@ class DetailedContent extends React.Component {
         const {
             orderDetail,
             orderHeader,
-            classes
+            SetOrders,
+            classes,
+            OderEditStateChange,
+            SelectItemChange,
         } = this.props;
-        
+
         return (
             <DialogContent >
                 <Paper className={classes.root}>
@@ -66,7 +69,6 @@ class DetailedContent extends React.Component {
 
                         <TableBody>
                             {
-                                // ["餐點名稱", "特別需求", "數量", "總價", "操作"]
                                 orderDetail.length !== 0 ? orderDetail.map((val, index) =>
                                     <TableRow key={index} className={classes.row} >
                                         <CustomTableCell align="right">{val.name + val.class}</CustomTableCell>
@@ -80,16 +82,24 @@ class DetailedContent extends React.Component {
                                         <CustomTableCell align="right">{val.count}</CustomTableCell>
                                         <CustomTableCell>${val.count * val.price}</CustomTableCell>
                                         <CustomTableCell align="right">
-                                            <Button className={classes.action}>
+                                            <Button className={classes.action} onClick={() => {
+                                                val.key = index;
+                                                SelectItemChange(val);
+                                                OderEditStateChange(true);
+                                            }
+                                            }>
                                                 <EditIcon />
                                             </Button>
-                                            <Button className={classes.action}>
+                                            <Button className={classes.action} onClick={() => {
+                                                window.confirm("確定要移除嗎?") === true && SetOrders(orderDetail.RemoveBykey(index));//自定義RemoveBykey方法
+                                            }
+                                            }>
                                                 <DeleteIcon />
                                             </Button>
                                         </CustomTableCell>
                                     </TableRow>
                                 ) : <TableRow className={classes.row} >
-                                        <CustomTableCell align="right">請選擇餐點...</CustomTableCell>
+                                        <CustomTableCell align="center" colSpan={orderHeader.length}>請選擇餐點...</CustomTableCell>
                                     </TableRow>
                             }
                         </TableBody>

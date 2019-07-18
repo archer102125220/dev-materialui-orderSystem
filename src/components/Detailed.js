@@ -70,7 +70,9 @@ class Detailed extends React.Component {
       menuItems,
       clear,
       Item,
-      orders
+      orders,
+      OderEditStateChange,
+      SelectItemChange,
     } = this.props;
 
     const { tempItem } = this.state;
@@ -102,7 +104,7 @@ class Detailed extends React.Component {
         '完成修改'
         :
         (clear === true) ?
-          '送出訂單'
+          '確認訂單'
           :
           '加入訂單',
       ItemCount = (typeof (Item.count) !== "undefined" && typeof (Item.class) === "string") ?
@@ -135,7 +137,10 @@ class Detailed extends React.Component {
           clear ?
             <DetailedContent
               orderDetail={orders}
-              orderHeader={["餐點名稱", "特別需求", "數量", "總價", "操作"]} />
+              orderHeader={["餐點名稱", "特別需求", "數量", "總價", "操作"]}
+              SetOrders={SetOrders}
+              OderEditStateChange={OderEditStateChange}
+              SelectItemChange={SelectItemChange} />
             :
             <DetailedOption
               description={description}
@@ -149,7 +154,7 @@ class Detailed extends React.Component {
               SetStates={this.SetTempItem}
             />
         }
-        <DetailedButton cancel={cancel} complete={complete} CancelActions={CancelActions} CompleteActions={CompleteActions} />
+        <DetailedButton cancel={cancel} complete={complete} disabled={orders.length === 0 && clear === true} CancelActions={CancelActions} CompleteActions={CompleteActions} />
       </CustomDialog>
     );
   }
@@ -162,8 +167,8 @@ Detailed.defaultProps = {
   StateChange: () => { },
   SetOrders: () => { },
   menuItems: [],
-  orderDetail: [],
-  Item: {}
+  orders: [],
+  Item: {},
 }
 
 export default Detailed;

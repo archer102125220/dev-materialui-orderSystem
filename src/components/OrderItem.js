@@ -22,7 +22,7 @@ const styles = theme => ({
 class OrderItem extends React.Component {
   render() {
     const { classes, StateChange, orderDetail, SelectItemChange, SetOrders } = this.props;
-    
+
     return (
       <div>
         {
@@ -32,6 +32,7 @@ class OrderItem extends React.Component {
               key={key}
               label={`${val.name + val.class} * ${val.count}`}
               onClick={() => {
+                val.key = key;
                 SelectItemChange(val);
                 StateChange(true);
               }}

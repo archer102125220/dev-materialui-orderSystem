@@ -49,19 +49,25 @@ export default {
       let order = state.order;
       if (payload.length === undefined) {
         let ctrl = false;
-        order = order.map(val => {
+        order = order.map((val, key) => {
           if (val.type === payload.type &&
             val.name === payload.name &&
             val.class === payload.class &&
-            val.special.ArrayComparison(payload.special)) { //ArrayComparison 自己定義的方法
+            val.special.ArrayComparison(payload.special)) { //ArrayComparison 自己定義的陣列比對方法
             ctrl = true;
+            payload.key = -1;
             payload.count = (payload.action === "add") ? payload.count + val.count : payload.count
+            return payload;
+          } else if (payload.key === key) {
+            ctrl = true;
+            payload.key = -1;
             return payload;
           } else {
             return val;
           }
         });
         payload.action = "";
+        payload.key = -1;
         if (ctrl === false) order.push(payload);
       } else {
         payload.action = "";

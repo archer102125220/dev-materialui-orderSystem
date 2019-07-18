@@ -27,9 +27,9 @@ class MaterialCheckbox extends React.Component {
     state = {
     };
 
-    handleChange(valueName,name, Check) {
+    handleChange(valueName, name, Check) {
         this.setState({ [name]: Check }, () => {
-            this.props.ChangeValue({ [valueName]: Object.FilterByName(this.state,true) });
+            this.props.ChangeValue({ [valueName]: Object.FilterByName(this.state, true) });
         });
 
     };
@@ -49,10 +49,11 @@ class MaterialCheckbox extends React.Component {
             classes,
             label,
             valueName,
+            className
         } = this.props;
         const { CheckName } = this.state;
         return (
-            <div>
+            <div className={className}>
                 <FormControl component="fieldset" className={classes.formControl}>
                     <FormLabel component="legend">{label}</FormLabel>
                     <FormGroup className={classes.group}>
@@ -63,7 +64,7 @@ class MaterialCheckbox extends React.Component {
                                 control={
                                     <Checkbox
                                         checked={this.state[val]}
-                                        onChange={e => { this.handleChange(valueName,val, e.target.checked) }}
+                                        onChange={e => { this.handleChange(valueName, val, e.target.checked) }}
                                         value={val}
                                         classes={
                                             {

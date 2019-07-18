@@ -23,7 +23,8 @@ class DetailedButton extends React.Component {
       cancel,
       complete,
       CancelActions,
-      CompleteActions
+      CompleteActions,
+      disabled
     } = this.props;
     // console.log(this.props,"MunItem");
     return (
@@ -32,7 +33,7 @@ class DetailedButton extends React.Component {
           <Button onClick={() => { CancelActions() }} color="primary">
             {cancel}
           </Button>
-          <Button variant="contained" color="primary" onClick={() => { CompleteActions() }} >
+          <Button variant="contained" disabled={disabled} color="primary" onClick={() => { CompleteActions() }} >
             {complete}
           </Button>
         </DialogActions>
