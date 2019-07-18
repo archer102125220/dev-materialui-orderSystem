@@ -131,7 +131,7 @@ class Detailed extends React.Component {
           SetOrders(tempItem);
         } else {
           PATCH_Orders(orders);
-          SetState({ open: true });
+          SetState({ open: true, variant: "success", message: "送單成功！" });
         }
       };
 

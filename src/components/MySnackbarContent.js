@@ -96,12 +96,12 @@ class CustomizedSnackbars extends React.Component {
 
     shouldComponentUpdate(nextProps) {
 
-        return  nextProps !== this.props;
-    
-      }
+        return nextProps !== this.props;
+
+    }
 
     render() {
-        
+
         return (
             <div>
                 <Snackbar
@@ -115,9 +115,24 @@ class CustomizedSnackbars extends React.Component {
                 >
                     <MySnackbarContentWrapper
                         onClose={this.props.handleClose}
-                        variant="success"
-                        message="送單成功！"
+                        variant={this.props.variant}
+                        message={this.props.message}
                     />
+                    {
+
+                        // <MySnackbarContentWrapper
+                        //   variant="error"
+                        //   message="This is an error message!"
+                        // />
+                        // <MySnackbarContentWrapper
+                        //   variant="warning"
+                        //   message="This is a warning message!"
+                        // />
+                        // <MySnackbarContentWrapper
+                        //   variant="info"
+                        //   message="This is an information message!"
+                        // />
+                    }
                 </Snackbar>
             </div>
         );

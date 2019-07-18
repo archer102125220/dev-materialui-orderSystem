@@ -22,7 +22,9 @@ class PosHome extends React.Component {
   constructor() {
     super();
     this.state = {
-      open: false
+      open: false,
+      variant: "success",
+      message: "送單成功！",
     }
   }
 
@@ -102,7 +104,12 @@ class PosHome extends React.Component {
           Item={OrderSelectItem}
           SetOrders={SetOrders}
         />
-        <MySnackbarContent open={this.state.open} handleClose={this.handleClose} />
+        <MySnackbarContent
+          open={this.state.open}
+          variant={this.state.variant}
+          message={this.state.message}
+          handleClose={this.handleClose}
+        />
       </div>
     );
   }
