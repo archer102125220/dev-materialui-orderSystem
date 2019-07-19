@@ -82,48 +82,43 @@ class Detailed extends React.Component {
     const { tempItem } = this.state;
 
     const types = (typeof (Item.class) !== "undefined") ?
-      menuItems.filter(val => Item.type === val.type)[0].class
-      :
+      menuItems.filter(val => Item.type === val.type)[0].class :
       [],
       special = (typeof (menuItems[0]) !== "undefined" && typeof (Item.type) !== "undefined") ?
-        menuItems.filter(val => Item.type === val.type)[0].special
-        :
+        menuItems.filter(val => Item.type === val.type)[0].special :
         [],
       name = (typeof (Item.name) !== "undefined") ?
-        Item.name
-        :
+        Item.name :
         clear === true ?
-          "請確認訂單明細"
-          :
+          "請確認訂單明細" :
           CircularProgress,
       description = (typeof (Item.description) !== "undefined") ?
-        Item.description
-        :
+        Item.description :
         clear === true ?
-          ""
-          :
+          "" :
           CircularProgress,
-      cancel = `取消${edit === true ? '修改' : '訂單'}`,
+      cancel = (edit === true) ? '取消修改' : (clear === true) ? '返回' : '取消訂單',
       complete = (edit === true) ?
-        '完成修改'
-        :
+        '完成修改' :
         (clear === true) ?
-          '確認訂單'
-          :
+          '確認訂單' :
           '加入訂單',
       ItemCount = (typeof (Item.count) !== "undefined" && typeof (Item.class) === "string") ?
-        Item.count
-        :
+        Item.count :
         1,
       ItemClass = (typeof (Item.class) !== "undefined" && typeof (Item.class) === "string") ?
-        Item.class
-        :
+        Item.class :
         types[0],
       ItemSpecial = (typeof (Item.special) !== "undefined" && typeof (Item.class) === "string") ?
-        Item.special
-        :
+        Item.special :
         [],
-      CancelActions = () => (window.confirm("確定要取消嗎?") === true) && StateChange(false)
+      CancelActions = () => {
+        if (clear === false)
+          (window.confirm("確定要取消嗎?") === true) && StateChange(false)
+        else
+          StateChange(false);
+
+      }
       ,
       CompleteActions = () => {
         StateChange(false);

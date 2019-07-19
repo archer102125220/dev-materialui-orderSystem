@@ -54,7 +54,7 @@ class DetailedContent extends React.Component {
             OderEditStateChange,
             SelectItemChange,
         } = this.props;
-
+        console.log(orderDetail);
         return (
             <DialogContent >
                 <Paper className={classes.root}>
@@ -74,7 +74,7 @@ class DetailedContent extends React.Component {
                                         <CustomTableCell align="right">{val.name + val.class}</CustomTableCell>
                                         <CustomTableCell align="right">
                                             {
-                                                val.special.length === 0 ?
+                                                val.special.length > 0 ?
                                                     val.special.map((val, key, arr) => val + ((arr[key + 1] !== undefined) ? "，" : "")) :
                                                     "無"
                                             }
