@@ -37,7 +37,6 @@ class PosHome extends React.Component {
     this.setState({ open: false });
   };
 
-
   SetState = (state) => {
     this.setState(state);
   }
@@ -61,7 +60,9 @@ class PosHome extends React.Component {
       OderEditOpen,
       OderEditStateChange,
       SetOrders,
-      PATCH_Orders
+      PATCH_Orders,
+      tableNumber,
+      SelectTableNumber
     } = this.props;
 
     return (
@@ -87,6 +88,8 @@ class PosHome extends React.Component {
           SetOrders={SetOrders}
           PATCH_Orders={PATCH_Orders}
           SetState={this.SetState}
+          handleChange={SelectTableNumber}
+          tableNumber={tableNumber}
         />
         <MenuDetail
           SetItems={SetItems}
@@ -124,6 +127,7 @@ const mapStateToProps = (state) => ({
   OderEditOpen: _.get(state, "order.editOpen"),
   OrderDetail: _.get(state, "order.order"),
   OrderSelectItem: _.get(state, "order.selectItem"),
+  tableNumber: _.get(state, "order.tableNumber"),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -136,6 +140,7 @@ const mapDispatchToProps = (dispatch) => ({
   OrderSelectItemChange: (payload) => dispatch({ type: 'order/SelectItemChange', payload }),
   SetOrders: (payload) => dispatch({ type: 'order/SetOrders', payload }),
   PATCH_Orders: (payload) => dispatch({ type: 'order/PATCH_Orders', payload }),
+  SelectTableNumber: (payload) => dispatch({ type: 'order/SelectTableNumber', payload }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PosHome));

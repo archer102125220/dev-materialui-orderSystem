@@ -53,10 +53,14 @@ class DetailedContent extends React.Component {
             classes,
             OderEditStateChange,
             SelectItemChange,
+            tableNumber,
         } = this.props;
         console.log(orderDetail);
         return (
             <DialogContent >
+                <List className={classes.OrderCount}>
+                    桌號： {tableNumber !== "" ? tableNumber + "號桌" : ""}
+                </List>
                 <Paper className={classes.root}>
                     <Table className={classes.table}>
                         <TableHead>

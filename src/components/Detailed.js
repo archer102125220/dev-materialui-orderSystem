@@ -77,6 +77,7 @@ class Detailed extends React.Component {
       SelectItemChange,
       PATCH_Orders,
       SetState,
+      tableNumber,
     } = this.props;
 
     const { tempItem } = this.state;
@@ -140,7 +141,8 @@ class Detailed extends React.Component {
               orderHeader={["餐點名稱", "特別需求", "數量", "總價", "操作"]}
               SetOrders={SetOrders}
               OderEditStateChange={OderEditStateChange}
-              SelectItemChange={SelectItemChange} />
+              SelectItemChange={SelectItemChange}
+              tableNumber={tableNumber} />
             :
             <DetailedOption
               description={description}
@@ -154,7 +156,7 @@ class Detailed extends React.Component {
               SetStates={this.SetTempItem}
             />
         }
-        <DetailedButton cancel={cancel} complete={complete} disabled={orders.length === 0 && clear === true} CancelActions={CancelActions} CompleteActions={CompleteActions} />
+        <DetailedButton cancel={cancel} complete={complete} disabled={orders.length === 0 && clear === true && tableNumber===""} CancelActions={CancelActions} CompleteActions={CompleteActions} />
       </CustomDialog>
     );
   }

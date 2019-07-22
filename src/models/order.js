@@ -9,6 +9,7 @@ export default {
   state: {
     detailsOpen: false,
     order: [],
+    tableNumber: "",
     selectItem: {},
     editOpen: false,
   },
@@ -36,6 +37,9 @@ export default {
     *SelectItemChange({ payload }, { call, put }) {
       yield put({ type: 'select_id_save', payload });
     },
+    *SelectTableNumber({ payload }, { call, put }) {
+      yield put({ type: 'select_table_number_save', payload });
+    },
     *PATCH_Orders({ payload }, { call, put }) {
       try {
         yield call(order.PATCH_orderList, 1, payload);
@@ -58,17 +62,17 @@ export default {
       if (payload.length === undefined) {
         let ctrl = false;
         order = order.map((val, key) => {
-          if (val.type === payload.type &&
+          if (payload.key === key) {
+            ctrl = true;
+            payload.key = -1;
+            return payload;
+          } else if (val.type === payload.type &&
             val.name === payload.name &&
             val.class === payload.class &&
             val.special.ArrayComparison(payload.special)) { //ArrayComparison 自己定義的陣列比對方法
             ctrl = true;
             payload.key = -1;
             payload.count = (payload.action === "add") ? payload.count + val.count : payload.count
-            return payload;
-          } else if (payload.key === key) {
-            ctrl = true;
-            payload.key = -1;
             return payload;
           } else {
             return val;
@@ -105,5 +109,11 @@ export default {
         order: payload
       };
     },
+    select_table_number_save(state, { payload }){
+      return {
+        ...state,
+        tableNumber: payload
+      };
+    }
   },
 };

@@ -5,6 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import OrderItem from '../components/OrderItem';
 import Button from '@material-ui/core/Button';
 import Detailed from '../components/Detailed';
+import MaterialSelect from '../components/MaterialSelect';
 
 const styles = {
   DetailBody: {
@@ -15,10 +16,23 @@ const styles = {
     height: '3%',
   },
   OrderList: {
-    height: '80%',
+    height: '75%',
   },
   OrderCount: {
+    width: "52%",
+    float: "left",
+    paddingTop: "20%",
+  },
+  OrderTable: {
+    width: "45%",
+    float: "left",
+  },
+  OrderButton: {
     width: "95%",
+    float: "left",
+  },
+  OrderSpan: {
+    width: "100%",
     textAlign: "right",
   }
 };
@@ -36,9 +50,11 @@ class OrderDetails extends React.Component {
       OrderSelectItemChange,
       SetOrders,
       PATCH_Orders,
-      SetState
+      SetState,
+      handleChange,
+      tableNumber,
     } = this.props;
-    
+
     return (
       <div className={classes.DetailBody}>
         <List className={classes.OredrTitle}>
@@ -64,14 +80,18 @@ class OrderDetails extends React.Component {
           SetOrders={SetOrders}
           PATCH_Orders={PATCH_Orders}
           SetState={SetState}
+          tableNumber={tableNumber}
         />
         <Divider />
-        <span className={classes.OrderCount} >
+        <span className={classes.OrderSpan} >
+          <List className={classes.OrderTable}>
+            <MaterialSelect tableNumber={tableNumber} toTal={10} piece="號桌" placeholder="請選擇桌號..." handleChange={handleChange} />
+          </List>
           <List className={classes.OrderCount}>
             總價：  ${orderDetail.reduce(((Previous, NowValue) => Previous + NowValue.count * NowValue.price), 0)}
           </List>
-          <List className={classes.OrderCount}>
-            <Button variant="contained" disabled={orderDetail.length === 0} color="primary" onClick={(e) => OrderDetailsStateChange(true)} >送出訂單</Button>
+          <List className={classes.OrderButton}>
+            <Button variant="contained" disabled={orderDetail.length === 0 || tableNumber===""} color="primary" onClick={(e) => OrderDetailsStateChange(true)} >送出訂單</Button>
           </List>
         </span>
       </div>
