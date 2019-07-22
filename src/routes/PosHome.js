@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import _ from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
 import Header from '../layouts/Header';
-import MySnackbarContent from '../components/MySnackbarContent';
+import MySnackbarContent from '../components/MySnackbarContent'; //material-ui官網上提供的封包好的訊息顯示組件，已修改成可自由傳入參數
 import OrderDetails from '../layouts/OrderDetails';
 import OrderEdit from '../layouts/OrderEdit';
 import MenuList from '../layouts/MenuList';

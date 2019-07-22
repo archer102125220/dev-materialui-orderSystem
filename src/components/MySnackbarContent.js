@@ -115,24 +115,9 @@ class CustomizedSnackbars extends React.Component {
                 >
                     <MySnackbarContentWrapper
                         onClose={this.props.handleClose}
-                        variant={this.props.variant}
+                        variant={this.props.variant /* 可換成：error、warning、info、success */}
                         message={this.props.message}
                     />
-                    {
-
-                        // <MySnackbarContentWrapper
-                        //   variant="error"
-                        //   message="This is an error message!"
-                        // />
-                        // <MySnackbarContentWrapper
-                        //   variant="warning"
-                        //   message="This is a warning message!"
-                        // />
-                        // <MySnackbarContentWrapper
-                        //   variant="info"
-                        //   message="This is an information message!"
-                        // />
-                    }
                 </Snackbar>
             </div>
         );
