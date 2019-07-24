@@ -44,6 +44,7 @@ export default {
       try {
         yield call(order.PATCH_orderList, 1, payload);
         yield put({ type: 'PATCH_save', payload: [] });
+        yield put({ type: 'select_table_number_save', payload: 0 });
       } catch (e) {
         console.log(e);
       }
@@ -109,7 +110,7 @@ export default {
         order: payload
       };
     },
-    select_table_number_save(state, { payload }){
+    select_table_number_save(state, { payload }) {
       return {
         ...state,
         tableNumber: payload

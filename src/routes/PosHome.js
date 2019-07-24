@@ -1,21 +1,48 @@
 import React from 'react';
+import classNames from 'classNames';
 import { connect } from 'dva';
 import _ from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
-import Header from '../layouts/Header';
+import Heade from '../layouts/Heade';
 import MySnackbarContent from '../components/MySnackbarContent'; //material-ui官網上提供的封包好的訊息顯示組件，已修改成可自由傳入參數
+import PageChage from '../layouts/PageChage';
 import OrderDetails from '../layouts/OrderDetails';
 import OrderEdit from '../layouts/OrderEdit';
 import MenuList from '../layouts/MenuList';
 import MenuDetail from '../layouts/MenuDetail';
 
-const styles = {
-  PosHome: {
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    margin: 0
-  },
+const styles = theme => {
+  console.log(theme.transitions);
+  return ({
+    PosHome: {
+      width: "100%",
+      height: "100%",
+      float: "left",
+      margin: 0,
+    },
+    head: {
+      width: "100%",
+      right: "unset",
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    main: {
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      width: "100%",
+    },
+    contentShift: {
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      width: "82.5%",
+    },
+  })
 };
 
 class PosHome extends React.Component {
@@ -25,10 +52,10 @@ class PosHome extends React.Component {
       open: false,
       variant: "success",
       message: "送單成功！",
+      left: false,
+      right: false,
     }
   }
-
-
   handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -40,6 +67,12 @@ class PosHome extends React.Component {
   SetState = (state) => {
     this.setState(state);
   }
+
+  toggleDrawer = (anchor, open) => () => {
+    this.setState({
+      [anchor]: open,
+    });
+  };
 
   render() {
     const {
@@ -64,20 +97,35 @@ class PosHome extends React.Component {
       tableNumber,
       SelectTableNumber
     } = this.props;
-
+    /*
+    classNames(classes.PosHome, {
+            [classes.contentShift]: this.state.right,
+          })
+    */
     return (
       <div className={classes.PosHome}>
-        {
-          // <Header />
-        }
-        <MenuList
-          menuItems={MenuItems}
+        <Heade
           tageid={Tageid}
           TageIdChange={TageIdChange}
-          open={MenuDetailOpen}
-          StateChange={MenuDetailStateChange}
-          MenuSelectItemChange={MenuSelectItemChange}
+          menuItems={MenuItems}
+          toggleDrawer={this.toggleDrawer}
+          className={classNames(classes.head, {
+            [classes.contentShift]: this.state.right,
+          })}
+          right={this.state.right}
         />
+        <div className={classNames(classes.main, {
+          [classes.contentShift]: this.state.right,
+        })}>
+          <MenuList
+            menuItems={MenuItems}
+            tageid={Tageid}
+            TageIdChange={TageIdChange}
+            open={MenuDetailOpen}
+            StateChange={MenuDetailStateChange}
+            MenuSelectItemChange={MenuSelectItemChange}
+          />
+        </div>
         <OrderDetails
           open={OrderDetailsOpen}
           menuItems={MenuItems}
@@ -90,6 +138,8 @@ class PosHome extends React.Component {
           SetState={this.SetState}
           handleChange={SelectTableNumber}
           tableNumber={tableNumber}
+          toggleDrawer={this.toggleDrawer}
+          right={this.state.right}
         />
         <MenuDetail
           SetItems={SetItems}
@@ -113,6 +163,9 @@ class PosHome extends React.Component {
           message={this.state.message}
           handleClose={this.handleClose}
         />
+        <PageChage
+          open={this.state.left}
+          toggleDrawer={this.toggleDrawer} />
       </div>
     );
   }

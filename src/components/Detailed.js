@@ -2,7 +2,6 @@ import React from 'react';
 import DetailedContent from '../components/DetailedContent';
 import DetailedOption from '../components/DetailedOption';
 import DetailedButton from '../components/DetailedButton';
-import MySnackbarContent from '../components/MySnackbarContent';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
@@ -126,6 +125,7 @@ class Detailed extends React.Component {
         if (clear === false) {
           SetOrders(tempItem);
         } else {
+          orders.tableNumber = tableNumber;
           PATCH_Orders(orders);
           SetState({ open: true, variant: "success", message: "送單成功！" });
         }
@@ -156,7 +156,7 @@ class Detailed extends React.Component {
               SetStates={this.SetTempItem}
             />
         }
-        <DetailedButton cancel={cancel} complete={complete} disabled={orders.length === 0 && clear === true && tableNumber===""} CancelActions={CancelActions} CompleteActions={CompleteActions} />
+        <DetailedButton cancel={cancel} complete={complete} disabled={orders.length === 0 && clear === true && tableNumber === ""} CancelActions={CancelActions} CompleteActions={CompleteActions} />
       </CustomDialog>
     );
   }
