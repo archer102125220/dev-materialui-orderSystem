@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classNames';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -22,9 +23,16 @@ const styles = theme => ({
         float: "left",
         height: '100%',
         marginLeft: "2%",
-    }
+    },
+    MenuItemBodyMobile: {
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+    },
 });
-
+//margin-left: 0px;
 class MenuItem extends React.Component {
     render() {
         const {
@@ -34,11 +42,14 @@ class MenuItem extends React.Component {
             SelectItemChange,
             special,
             selectclass,
-            orderType
+            orderType,
+            isMobile,
         } = this.props;
-        
+
         return (
-            <div className={classes.MenuItemBody}>
+            <div className={classNames(classes.MenuItemBody, {
+                [classes.MenuItemBodyMobile]: isMobile,
+            })}>
                 {
                     val.map((val, inde) => {
                         switch (val.src) {
@@ -80,8 +91,9 @@ class MenuItem extends React.Component {
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
-                        </Card>)
-                    })}
+                        </Card>);
+                    })
+                }
             </div>
         );
     }

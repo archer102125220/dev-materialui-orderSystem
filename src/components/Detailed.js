@@ -53,6 +53,7 @@ class Detailed extends React.Component {
       this.setState({ tempItem: { ...tempItem, class: types[0], count } });
     }
 
+
     return nextState !== this.state || nextProps !== this.props;
 
   }
@@ -77,6 +78,8 @@ class Detailed extends React.Component {
       PATCH_Orders,
       SetState,
       tableNumber,
+      isMobile,
+      VATNumber,
     } = this.props;
 
     const { tempItem } = this.state;
@@ -126,11 +129,12 @@ class Detailed extends React.Component {
           SetOrders(tempItem);
         } else {
           orders.tableNumber = tableNumber;
+          orders.VATNumber = VATNumber;
           PATCH_Orders(orders);
           SetState({ open: true, variant: "success", message: "送單成功！" });
         }
       };
-
+      
     return (
       <CustomDialog open={open} aria-labelledby="form-dialog-title" >
         <DialogTitle id="form-dialog-title">{name}</DialogTitle>
@@ -142,7 +146,9 @@ class Detailed extends React.Component {
               SetOrders={SetOrders}
               OderEditStateChange={OderEditStateChange}
               SelectItemChange={SelectItemChange}
-              tableNumber={tableNumber} />
+              tableNumber={tableNumber}
+              isMobile={isMobile}
+            />
             :
             <DetailedOption
               description={description}
@@ -154,9 +160,11 @@ class Detailed extends React.Component {
               tempItem={tempItem}
               tempItemUpData={this.tempItemUpData}
               SetStates={this.SetTempItem}
+              isMobile={isMobile}
             />
         }
-        <DetailedButton cancel={cancel} complete={complete} disabled={orders.length === 0 && clear === true && tableNumber === ""} CancelActions={CancelActions} CompleteActions={CompleteActions} />
+
+        <DetailedButton cancel={cancel} complete={complete} disabled={clear===true && (orders.length === 0 || tableNumber === "")} CancelActions={CancelActions} CompleteActions={CompleteActions} />
       </CustomDialog>
     );
   }

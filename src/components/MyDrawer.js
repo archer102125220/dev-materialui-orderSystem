@@ -26,7 +26,7 @@ class MyDrawer extends React.Component {
             keyDownClose,
             myClasses
         } = this.props;
-        //classNames(classes.list, classes.root)
+        
         return (
             <Drawer className={className} classes={myClasses} anchor={anchor || "left"} variant={variant || "temporary"} open={open} onClose={toggleDrawer(anchor, false)}>
                 <div

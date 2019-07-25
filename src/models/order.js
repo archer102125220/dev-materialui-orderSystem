@@ -12,6 +12,7 @@ export default {
     tableNumber: "",
     selectItem: {},
     editOpen: false,
+    VATNumber: "",
   },
 
 
@@ -40,11 +41,15 @@ export default {
     *SelectTableNumber({ payload }, { call, put }) {
       yield put({ type: 'select_table_number_save', payload });
     },
+    *SetVATNumber({ payload }, { call, put }) {
+      yield put({ type: 'VAT_number_save', payload });
+    },
     *PATCH_Orders({ payload }, { call, put }) {
       try {
         yield call(order.PATCH_orderList, 1, payload);
         yield put({ type: 'PATCH_save', payload: [] });
         yield put({ type: 'select_table_number_save', payload: 0 });
+        yield put({ type: 'VAT_number_save', payload: "" });
       } catch (e) {
         console.log(e);
       }
@@ -115,6 +120,12 @@ export default {
         ...state,
         tableNumber: payload
       };
-    }
+    },
+    VAT_number_save(state, { payload }) {
+      return {
+        ...state,
+        VATNumber: payload
+      };
+    },
   },
 };

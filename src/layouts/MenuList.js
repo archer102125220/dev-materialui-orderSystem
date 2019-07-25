@@ -46,8 +46,9 @@ class MenuList extends React.Component {
             open,
             StateChange,
             MenuSelectItemChange,
+            isMobile,
         } = this.props;
-        
+
         return (
             <div className={classes.MenuBody}>
                 <div className={classes.root}>
@@ -66,6 +67,7 @@ class MenuList extends React.Component {
                                 open={open}
                                 StateChange={StateChange}
                                 SelectItemChange={MenuSelectItemChange}
+                                isMobile={isMobile}
                             />
                         )}
                     </SwipeableViews>

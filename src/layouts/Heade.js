@@ -70,6 +70,7 @@ class Heade extends React.Component {
             toggleDrawer,
             className,
             right,
+            isMobile,
         } = this.props;
         return (
             <div className={classes.MenuBody}>
@@ -102,7 +103,7 @@ class Heade extends React.Component {
                         )}
                     </Tabs>
                     <IconButton
-                        className={classNames(classes.menuButton, classes.ordersButton, right && classes.hide)}
+                        className={classNames(classes.menuButton, classes.ordersButton, (right && !isMobile) ? classes.hide : "")}
                         color="inherit"
                         aria-label="Open drawer"
                         onClick={toggleDrawer("right", true)}

@@ -62,7 +62,6 @@ class MaterialSelect extends React.Component {
           >
             <option value="" />
             {
-              //toTal  piece
               this.options(toTal, piece)
               /*
             <option value={1}>1號桌</option>

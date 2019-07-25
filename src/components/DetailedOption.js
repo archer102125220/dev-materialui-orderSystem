@@ -8,7 +8,16 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     container: {
-        display: '-webkit-box',
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    containerMobile: {
+        transition: theme.transitions.create('padding', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        paddingLeft: 14,
+        paddingRight: 14,
     },
     textField: {
         marginLeft: theme.spacing.unit,
@@ -26,9 +35,9 @@ const styles = theme => ({
     contentText: {
         width: "50%"
     },
-    checkbox:{
+    checkbox: {
         maxWidth: "650px"
-    }
+    },
 });
 
 class DetailedOption extends React.Component {
@@ -60,12 +69,13 @@ class DetailedOption extends React.Component {
             classes,
             ItemClass,
             ItemSpecial,
+            isMobile,
         } = this.props;
         const { count } = this.state;
         const error = count === 0;
 
         return (
-            <DialogContent>
+            <DialogContent classes={{ root: isMobile && classes.containerMobile }}>
                 <div className={classes.container}>
                     <DialogContentText className={classes.contentText}>
                         {description}
@@ -84,7 +94,7 @@ class DetailedOption extends React.Component {
                 </div>
                 <MaterialRadio label="請選擇特需..." CheckValue={types} DefCheck={ItemClass} valueName="class" ChangeValue={this.SetStates} />
                 <MaterialCheckbox className={classes.checkbox} label="請選擇類型..." CheckValue={special} DefCheck={ItemSpecial} valueName="special" ChangeValue={this.SetStates} />
-            </DialogContent>
+            </DialogContent >
         );
     }
 }

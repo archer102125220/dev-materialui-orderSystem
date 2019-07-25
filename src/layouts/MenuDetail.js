@@ -9,10 +9,16 @@ class MenuDetail extends React.Component {
   }
 
   render() {
-    const { open, StateChange, menuItems,Item,SetOrders } = this.props;
+    const { open, StateChange, menuItems, Item, SetOrders, isMobile } = this.props;
     return (
       <span>
-        <Detailed open={open} StateChange={StateChange} menuItems={menuItems} Item={Item} SetOrders={SetOrders} />
+        <Detailed
+          open={open}
+          StateChange={StateChange}
+          menuItems={menuItems}
+          Item={Item}
+          SetOrders={SetOrders}
+          isMobile={isMobile} />
       </span>
     );
   }

@@ -10,6 +10,7 @@ class OrderEdit extends React.Component {
       menuItems,
       Item,
       SetOrders,
+      isMobile
     } = this.props;
     
     return (
@@ -21,6 +22,7 @@ class OrderEdit extends React.Component {
           Item={Item}
           edit={true}
           SetOrders={SetOrders}
+          isMobile={isMobile}
         />
       </span>
     );
