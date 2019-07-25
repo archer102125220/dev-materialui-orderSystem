@@ -148,6 +148,7 @@ class Detailed extends React.Component {
               SelectItemChange={SelectItemChange}
               tableNumber={tableNumber}
               isMobile={isMobile}
+              VATNumber={VATNumber}
             />
             :
             <DetailedOption
