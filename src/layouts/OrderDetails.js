@@ -23,7 +23,7 @@ const styles = theme => ({
   },
   OrderList: {
     height: '66%',
-    width:'100%',
+    width: '100%',
     overflow: 'auto',
   },
   OrderCount: {
@@ -152,7 +152,7 @@ class OrderDetails extends React.Component {
               />
             </List>
             <List className={classes.OrderButton}>
-              <Button variant="contained" disabled={orderDetail.length === 0 || tableNumber === ""  || tableNumber===0} color="primary" onClick={(e) => OrderDetailsStateChange(true)} >送出訂單</Button>
+              <Button variant="contained" disabled={orderDetail.length === 0} color="primary" onClick={(e) => OrderDetailsStateChange(true)} >送出訂單</Button>
             </List>
           </span>
         </div>

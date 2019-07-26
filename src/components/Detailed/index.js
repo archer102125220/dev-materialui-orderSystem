@@ -165,7 +165,7 @@ class Detailed extends React.Component {
             />
         }
 
-        <MaterialCancelComplete cancel={cancel} complete={complete} disabled={clear===true && (orders.length === 0 || tableNumber === "" || tableNumber===0)} CancelActions={CancelActions} CompleteActions={CompleteActions} />
+        <MaterialCancelComplete cancel={cancel} complete={complete} disabled={clear===true && orders.length === 0} CancelActions={CancelActions} CompleteActions={CompleteActions} />
       </CustomDialog>
     );
   }
