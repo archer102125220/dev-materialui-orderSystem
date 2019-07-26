@@ -1,6 +1,6 @@
 {
   "private": true,
-  "homepage": "https://archer102125220.github.io/dva-materialui-orderSystem/",
+  "homepage": "https://archer102125220.github.io/dva-materialui-RWDorderSystem/",
   "scripts": {
     "start": "cross-env webpack-dev-server --progress --colors --open",
     "build": "webpack --mode production",
