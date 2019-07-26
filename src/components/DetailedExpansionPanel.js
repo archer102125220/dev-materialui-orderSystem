@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
+import { enquireScreen } from 'enquire-js';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/DeleteForever';
@@ -25,23 +25,41 @@ const styles = theme => ({
         color: theme.palette.text.secondary,
     },
     specialCountPrice: {
-        marginRight: 50,
+        marginRight: 10,
     },
     action: {
-        marginLeft: 50,
-    }
+        marginLeft: 10,
+    },
+    expansionPanelRoot: {
+        paddingRight: 0,
+        paddingLeft: 12,
+    },
 });
 
 class DetailedExpansionPanel extends React.Component {
-    state = {
-        expanded: null,
-    };
+
+    constructor() {
+        super();
+        this.state = {
+            expanded: null,
+            isPhone: false,
+        }
+    }
 
     handleChange = panel => (event, expanded) => {
         this.setState({
             expanded: expanded ? panel : false,
         });
     };
+
+    componentDidMount = () => {
+        //enquire-js參考文件  https://github.com/alibaba/ice/wiki/%E5%93%8D%E5%BA%94%E5%BC%8F%E6%96%B9%E6%A1%88
+        this.enquireHandler = enquireScreen(mobile => {
+            this.setState({
+                isPhone: mobile ? true : false,
+            });
+        }, "(max-width: 375px)");
+    }
 
     render() {
         const {
@@ -62,7 +80,7 @@ class DetailedExpansionPanel extends React.Component {
                             <span className={classes.heading}>{val.name + val.class}</span>
                             <span className={classes.secondaryHeading}>共 {val.count} 份</span>
                         </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
+                        <ExpansionPanelDetails className={classes.expansionPanelRoot}>
                             <span className={classes.specialCountPrice}>
                                 {orderHeader[1] + ":"}
                                 {

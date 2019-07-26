@@ -1,4 +1,6 @@
 import React from 'react';
+import { enquireScreen } from 'enquire-js';
+import classNames from 'classNames';
 import MaterialCheckbox from './MaterialCheckbox';
 import MaterialRadio from './MaterialRadio';
 import MaterialNumber from './MaterialNumber';
@@ -11,6 +13,9 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
     },
+    root:{
+        //transitions動畫特效用
+    },
     containerMobile: {
         transition: theme.transitions.create('padding', {
             easing: theme.transitions.easing.easeOut,
@@ -18,6 +23,14 @@ const styles = theme => ({
         }),
         paddingLeft: 14,
         paddingRight: 14,
+    },
+    containerPhone: {
+        transition: theme.transitions.create('padding', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        paddingLeft: 0,
+        paddingRight: 0,
     },
     textField: {
         marginLeft: theme.spacing.unit,
@@ -45,7 +58,8 @@ class DetailedOption extends React.Component {
         super();
         this.state = {
             count: 1,
-            tempItem: {}
+            tempItem: {},
+            isPhone: false,
         }
     }
 
@@ -53,6 +67,16 @@ class DetailedOption extends React.Component {
         const { ItemCount, tempItem } = this.props;
         this.setState({ count: ItemCount, tempItem });
     }
+
+    componentDidMount = () => {
+        //enquire-js參考文件  https://github.com/alibaba/ice/wiki/%E5%93%8D%E5%BA%94%E5%BC%8F%E6%96%B9%E6%A1%88
+        this.enquireHandler = enquireScreen(mobile => {
+            this.setState({
+                isPhone: mobile ? true : false,
+            });
+        }, "(max-width: 385px)");
+    }
+
 
     SetStates = (States = {}, Back = () => { }) => {
         this.setState(States, () => {
@@ -71,11 +95,13 @@ class DetailedOption extends React.Component {
             ItemSpecial,
             isMobile,
         } = this.props;
-        const { count } = this.state;
+        const { count, isPhone } = this.state;
         const error = count === 0;
-
         return (
-            <DialogContent classes={{ root: isMobile && classes.containerMobile }}>
+            <DialogContent classes={{ root: classNames(classes.root, {
+                [classes.containerMobile]: isMobile,
+                [classes.containerPhone]: this.state.isPhone,
+            }) }}>
                 <div className={classes.container}>
                     <DialogContentText className={classes.contentText}>
                         {description}
@@ -85,11 +111,11 @@ class DetailedOption extends React.Component {
                         textMargin="normal"
                         textVariant="outlined"
                         buttonVariant="outlined"
-                        className={classes.span}
                         value={count}
                         error={error}
                         valueName="count"
                         ChangeValue={this.SetStates}
+                        isPhone={isPhone}
                     />
                 </div>
                 <MaterialRadio label="請選擇特需..." CheckValue={types} DefCheck={ItemClass} valueName="class" ChangeValue={this.SetStates} />

@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classNames';
+import { enquireScreen } from 'enquire-js';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -15,6 +16,10 @@ const styles = theme => ({
         width: 345,
         margin: theme.spacing.unit + 5,
         float: "inherit",
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
     },
     media: {
         height: 140,
@@ -31,9 +36,41 @@ const styles = theme => ({
         }),
         marginLeft: 0,
     },
+    cardMobile: {
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: "2.5%",
+    },
+    cardPhone: {
+        transition: theme.transitions.create('padding', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+        marginRight: 0,
+    },
 });
 //margin-left: 0px;
 class MenuItem extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            isPhone: false,
+        }
+    }
+
+
+    componentDidMount = () => {
+        //enquire-js參考文件  https://github.com/alibaba/ice/wiki/%E5%93%8D%E5%BA%94%E5%BC%8F%E6%96%B9%E6%A1%88
+        this.enquireHandler = enquireScreen(mobile => {
+            this.setState({
+                isPhone: mobile ? true : false,
+            });
+        }, "(max-width: 358px)");
+    }
+
     render() {
         const {
             classes,
@@ -67,7 +104,10 @@ class MenuItem extends React.Component {
                         val.type = orderType;
                         val.action = "add";
 
-                        return (<Card key={inde} className={classes.card}>
+                        return (<Card key={inde} className={classNames(classes.card, {
+                            [classes.cardMobile]: isMobile,
+                            [classes.cardPhone]: this.state.isPhone,
+                        })}>
                             <CardActionArea onClick={() => {
                                 StateChange(true);
                                 SelectItemChange(val);

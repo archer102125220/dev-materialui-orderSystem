@@ -3,12 +3,12 @@ import axios from 'axios';
 import _ from 'lodash';
 import qs from 'qs';
 
-const SERVER_PREFIX = process.env.SERVER_PREFIX,
-  SERVER_PORT = process.env.SERVER_PORT,
-  SERVER_HOST = process.env.SERVER_HOST,
-  SERVER__PROTOCOL = process.env.SERVER__PROTOCOL;
-  
-const baseURL = (SERVER__PROTOCOL || 'http://') + (SERVER_HOST || 'localhost') + (SERVER_PORT || 80) + (SERVER_PREFIX || 'api');
+const SERVER_PREFIX = process.env.SERVER_PREFIX || 'api',
+  SERVER_PORT = process.env.SERVER_PORT || 80,
+  SERVER_HOST = process.env.SERVER_HOST || 'localhost',
+  SERVER__PROTOCOL = process.env.SERVER__PROTOCOL || 'http://';
+
+const baseURL = SERVER__PROTOCOL + SERVER_HOST + SERVER_PORT + SERVER_PREFIX;
 
 //透過axios向API請求資料
 const ax = axios.create({ baseURL });//建立與API跟目錄連線與操作的物件

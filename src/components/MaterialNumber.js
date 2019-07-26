@@ -1,4 +1,6 @@
 import React from 'react';
+import { enquireScreen } from 'enquire-js';
+import classNames from 'classNames';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -12,12 +14,37 @@ const styles = theme => ({
         height: 25,
         width: 100
     },
+    textFieldPhone: {
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+        marginRight: 0,
+    },
     button: {
         height: 70
     },
 });
 
 class MaterialNumber extends React.Component {
+
+    constructor() {
+        super();
+        this.state = {
+            isPhone: false,
+        }
+    }
+
+    componentDidMount = () => {
+        //enquire-js參考文件  https://github.com/alibaba/ice/wiki/%E5%93%8D%E5%BA%94%E5%BC%8F%E6%96%B9%E6%A1%88
+        this.enquireHandler = enquireScreen(mobile => {
+            this.setState({
+                isPhone: mobile ? true : false,
+            });
+        }, "(max-width: 385px)");
+    }
+
     NumberInput(valueName = "", value) {
         value = (Number(value) < 0 || isNaN(value) === true || value === "") ? 0 : Number(value);
         if (valueName === "") {
@@ -37,7 +64,8 @@ class MaterialNumber extends React.Component {
             buttonVariant,
             value,
             error,
-            valueName
+            valueName,
+            className,
         } = this.props;
 
         return (
@@ -47,7 +75,9 @@ class MaterialNumber extends React.Component {
                     error={error}
                     label={label}
                     value={value}
-                    className={classes.textField}
+                    className={classNames(classes.textField, {
+                        [classes.textFieldPhone]: this.state.isPhone,
+                    })}
                     margin={textMargin}
                     variant={textVariant}
                     onChange={e => { this.NumberInput(valueName, e.target.value) }}
