@@ -7,8 +7,8 @@ import Divider from '@material-ui/core/Divider';
 import OrderItem from '../components/OrderItem';
 import Button from '@material-ui/core/Button';
 import Detailed from '../components/Detailed';
-import MaterialSelect from '../components/MaterialSelect';
-import MyDrawer from '../components/MyDrawer';
+import MaterialSelect from '../components/MyMaterial/MaterialSelect';
+import MaterialDrawer from '../components/MyMaterial/MaterialDrawer';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import IconButton from '@material-ui/core/IconButton';
 
@@ -91,7 +91,7 @@ class OrderDetails extends React.Component {
     } = this.props;
 
     return (
-      <MyDrawer
+      <MaterialDrawer
         toggleDrawer={toggleDrawer}
         open={right}
         variant={!isMobile && "persistent"}
@@ -152,11 +152,11 @@ class OrderDetails extends React.Component {
               />
             </List>
             <List className={classes.OrderButton}>
-              <Button variant="contained" disabled={orderDetail.length === 0 || tableNumber === ""} color="primary" onClick={(e) => OrderDetailsStateChange(true)} >送出訂單</Button>
+              <Button variant="contained" disabled={orderDetail.length === 0 || tableNumber === ""  || tableNumber===0} color="primary" onClick={(e) => OrderDetailsStateChange(true)} >送出訂單</Button>
             </List>
           </span>
         </div>
-      </MyDrawer>
+      </MaterialDrawer>
     );
   }
 }

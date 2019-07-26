@@ -75,7 +75,7 @@ class DetailedExpansionPanel extends React.Component {
         return (
             <div className={classes.root}>
                 {orderDetail.map((val, inde) =>
-                    <ExpansionPanel expanded={expanded === inde} onChange={this.handleChange(inde)}>
+                    <ExpansionPanel key={inde} expanded={expanded === inde} onChange={this.handleChange(inde)}>
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                             <span className={classes.heading}>{val.name + val.class}</span>
                             <span className={classes.secondaryHeading}>共 {val.count} 份</span>

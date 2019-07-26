@@ -7,7 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MyDrawer from '../components/MyDrawer';
+import MaterialDrawer from '../components/MyMaterial/MaterialDrawer';
 import Fastfood from '@material-ui/icons/Fastfood';
 
 const styles = theme => ({
@@ -21,20 +21,18 @@ class PageChage extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <MyDrawer open={this.props.open} anchor="left" toggleDrawer={this.props.toggleDrawer} keyDownClose={true} clickClose={true}>
+            <MaterialDrawer open={this.props.open} anchor="left" toggleDrawer={this.props.toggleDrawer} keyDownClose={true} clickClose={true}>
                 <List>
                     <ListItem>
                         <ListItemText primary="XXX早餐店" />
                     </ListItem>
                     <Divider />
-                    <Link to="/" className={classes.hyperLink}>
-                        <ListItem button >
-                            <ListItemIcon><Fastfood /></ListItemIcon>
-                            <ListItemText primary="點餐" />
-                        </ListItem>
-                    </Link>
+                    <ListItem button={true} component={Link} to="/" className={classes.hyperLink} >
+                        <ListItemIcon><Fastfood /></ListItemIcon>
+                        <ListItemText primary="點餐" />
+                    </ListItem>
                 </List>
-            </MyDrawer>
+            </MaterialDrawer>
         );
     }
 }

@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 
 
-class DetailedButton extends React.Component {
+class MaterialCancelComplete extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     //react 生命週期 https://medium.com/@shihKai/react-js-%E5%85%83%E4%BB%B6%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E5%AD%B8%E7%BF%92-ff1a2fabb030
@@ -42,11 +42,11 @@ class DetailedButton extends React.Component {
   }
 }
 
-DetailedButton.defaultProps = {
+MaterialCancelComplete.defaultProps = {
   cancel: "取消訂單",
   complete: "加入訂單",
   CancelActions: () => { },
   CompleteActions: () => { },
 }
 
-export default DetailedButton;
+export default MaterialCancelComplete;

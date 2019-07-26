@@ -12,7 +12,7 @@ const styles = theme => ({
     }
 });
 
-class MyDrawer extends React.Component {
+class MaterialDrawer extends React.Component {
 
     render() {
         const {
@@ -46,4 +46,4 @@ class MyDrawer extends React.Component {
 }
 
 
-export default withStyles(styles)(MyDrawer);
+export default withStyles(styles)(MaterialDrawer);

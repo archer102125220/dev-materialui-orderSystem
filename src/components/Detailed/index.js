@@ -1,7 +1,7 @@
 import React from 'react';
-import DetailedContent from '../components/DetailedContent';
-import DetailedOption from '../components/DetailedOption';
-import DetailedButton from '../components/DetailedButton';
+import DetailedContent from './DetailedContent';
+import DetailedOption from './DetailedOption';
+import MaterialCancelComplete from '../MyMaterial/MaterialCancelComplete';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
@@ -165,7 +165,7 @@ class Detailed extends React.Component {
             />
         }
 
-        <DetailedButton cancel={cancel} complete={complete} disabled={clear===true && (orders.length === 0 || tableNumber === "")} CancelActions={CancelActions} CompleteActions={CompleteActions} />
+        <MaterialCancelComplete cancel={cancel} complete={complete} disabled={clear===true && (orders.length === 0 || tableNumber === "" || tableNumber===0)} CancelActions={CancelActions} CompleteActions={CompleteActions} />
       </CustomDialog>
     );
   }

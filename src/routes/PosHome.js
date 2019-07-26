@@ -5,7 +5,7 @@ import { connect } from 'dva';
 import _ from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
 import Heade from '../layouts/Heade';
-import MySnackbarContent from '../components/MySnackbarContent'; //material-ui官網上提供的封包好的訊息顯示組件，已修改成可自由傳入參數
+import MySnackbarContent from '../components/MyMaterial/MaterialSnackbarContent'; //material-ui官網上提供的封包好的訊息顯示組件，已修改成可自由傳入參數
 import PageChage from '../layouts/PageChage';
 import OrderDetails from '../layouts/OrderDetails';
 import OrderEdit from '../layouts/OrderEdit';

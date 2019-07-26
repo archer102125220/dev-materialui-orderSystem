@@ -1,9 +1,9 @@
 import React from 'react';
 import { enquireScreen } from 'enquire-js';
 import classNames from 'classNames';
-import MaterialCheckbox from './MaterialCheckbox';
-import MaterialRadio from './MaterialRadio';
-import MaterialNumber from './MaterialNumber';
+import MaterialCheckbox from '../MyMaterial/MaterialCheckbox';
+import MaterialRadio from '../MyMaterial/MaterialRadio';
+import MaterialNumber from '../MyMaterial/MaterialNumber';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import { withStyles } from '@material-ui/core/styles';

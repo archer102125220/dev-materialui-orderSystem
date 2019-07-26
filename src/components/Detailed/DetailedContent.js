@@ -3,8 +3,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
-import DetailedTable from '../components/DetailedTable';
-import DetailedExpansionPanel from '../components/DetailedExpansionPanel';
+import DetailedTable from './DetailedTable';
+import DetailedExpansionPanel from './DetailedExpansionPanel';
 
 
 const styles = theme => ({
