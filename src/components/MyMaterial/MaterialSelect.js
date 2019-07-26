@@ -21,20 +21,17 @@ const styles = theme => ({
 });
 
 class MaterialSelect extends React.Component {
-  state = {
-    tableNumber: '',
-    // name: 'hai',
-    // labelWidth: 0,
-  };
 
-  //   componentDidMount() {
-  //     this.setState({
-  //       labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-  //     });
-  //   }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps !== this.props) {
+      const { defValue, tableNumber } = nextProps;
+      if (defValue && (tableNumber === "" || tableNumber === 0)) this.props.handleChange(defValue);
+    }
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
+    return nextProps !== this.props;
+  }
+
+  handleChange = event => {
     this.props.handleChange(event.target.value);
   };
 
@@ -49,7 +46,7 @@ class MaterialSelect extends React.Component {
 
 
   render() {
-    const { classes, tableNumber, toTal, piece, placeholder } = this.props;
+    const { classes, tableNumber, toTal, piece, placeholder, startValue } = this.props;
 
     return (
       <div className={classes.root}>
@@ -57,19 +54,18 @@ class MaterialSelect extends React.Component {
           <InputLabel htmlFor="tableNumber-native-helper">{(placeholder) ? placeholder : "請選擇..."}</InputLabel>
           <NativeSelect
             value={tableNumber}
-            onChange={this.handleChange('tableNumber')}
+            onChange={this.handleChange}
             input={<Input name="tableNumber" id="tableNumber-native-helper" />}
           >
-            <option value="" />
+
+
+            {
+              startValue ?
+                <option value={startValue[0]}>{startValue[1]}</option> :
+                <option value="" />
+            }
             {
               this.options(toTal, piece)
-              /*
-            <option value={1}>1號桌</option>
-            <option value={2}>2號桌</option>
-            <option value={3}>3號桌</option>
-            <option value={4}>4號桌</option>
-            <option value={5}>5號桌</option>
-              */
             }
           </NativeSelect>
         </FormControl>
@@ -81,5 +77,10 @@ class MaterialSelect extends React.Component {
 MaterialSelect.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
+MaterialSelect.defaultProps = {
+  defValue: "",
+  handleChange: () => { },
+}
 
 export default withStyles(styles)(MaterialSelect);
