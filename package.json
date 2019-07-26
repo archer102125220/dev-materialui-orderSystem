@@ -1,10 +1,13 @@
 {
   "private": true,
+  "homepage": "https://archer102125220.github.io/dva-materialui-orderSystem/",
   "scripts": {
     "start": "cross-env webpack-dev-server --progress --colors --open",
     "build": "webpack --mode production",
     "lint": "eslint --ext .js src test",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@material-ui/core": "3.9.2",
