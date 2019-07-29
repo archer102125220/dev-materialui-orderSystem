@@ -13,6 +13,7 @@ export default {
     selectItem: {},
     editOpen: false,
     VATNumber: "",
+    right: false,
   },
 
 
@@ -48,7 +49,7 @@ export default {
       try {
         yield call(order.PATCH_orderList, 1, payload);
         yield put({ type: 'PATCH_save', payload: [] });
-        yield put({ type: 'select_table_number_save', payload: 0 });
+        yield put({ type: 'select_table_number_save', payload: "" });
         yield put({ type: 'VAT_number_save', payload: "" });
       } catch (e) {
         console.log(e);
@@ -66,19 +67,24 @@ export default {
     order_save(state, { payload }) {
       let order = state.order;
       if (payload.length === undefined) {
-        let ctrl = false;
+        let ctrl = false,
+          cover = -1;
         order = order.map((val, key) => {
-          if (payload.key === key) {
-            ctrl = true;
-            payload.key = -1;
-            return payload;
-          } else if (val.type === payload.type &&
+          if (val.type === payload.type &&
             val.name === payload.name &&
             val.class === payload.class &&
             val.special.ArrayComparison(payload.special)) { //ArrayComparison 自己定義的陣列比對方法
             ctrl = true;
-            payload.key = -1;
-            payload.count = (payload.action === "add") ? payload.count + val.count : payload.count
+            payload.count = payload.count + val.count;
+            if (payload.key !== -1) cover = payload.key;
+            return payload;
+          } else {
+            return val;
+          }
+        });
+        order = order.map((val, key) => {
+          if (payload.key === key && cover === -1) {
+            ctrl = true;
             return payload;
           } else {
             return val;
@@ -86,12 +92,12 @@ export default {
         });
         payload.action = "";
         payload.key = -1;
+        if (cover !== -1) order = order.RemoveBykey(cover);
         if (ctrl === false) order.push(payload);
       } else {
         payload.action = "";
         order = payload;
       }
-
       return {
         ...state,
         order

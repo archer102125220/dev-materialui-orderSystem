@@ -103,6 +103,7 @@ class MenuItem extends React.Component {
                         val.class = [];
                         val.type = orderType;
                         val.action = "add";
+                        val.key = -1;
 
                         return (<Card key={inde} className={classNames(classes.card, {
                             [classes.cardMobile]: isMobile,

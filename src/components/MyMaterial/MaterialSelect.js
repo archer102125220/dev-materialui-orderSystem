@@ -58,7 +58,6 @@ class MaterialSelect extends React.Component {
             input={<Input name="tableNumber" id="tableNumber-native-helper" />}
           >
 
-
             {
               startValue ?
                 <option value={startValue[0]}>{startValue[1]}</option> :

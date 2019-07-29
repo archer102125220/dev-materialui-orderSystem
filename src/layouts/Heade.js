@@ -42,25 +42,9 @@ const styles = theme => ({
 });
 
 class Heade extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            left: false,
-        };
-    }
 
     handleChange = (event, value) => {
         this.props.TageIdChange(value);
-    };
-
-    handleChangeIndex = index => {
-        this.props.TageIdChange(index);
-    };
-
-    toggleDrawer = (open) => () => {
-        this.setState({
-            'left': open,
-        });
     };
 
     render() {

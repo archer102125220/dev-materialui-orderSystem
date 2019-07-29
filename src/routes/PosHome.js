@@ -109,8 +109,11 @@ class PosHome extends React.Component {
       SelectTableNumber,
       VATNumber,
       SetVATNumber,
+      right,
+      isMobile,
+      left,
     } = this.props;
-    // console.log(this.state.right, !this.state.isMobile, (this.state.right && !this.state.isMobile) ? true : false);
+    
     return (
       <div className={classes.PosHome}>
         <Heade

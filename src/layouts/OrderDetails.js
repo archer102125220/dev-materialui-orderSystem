@@ -136,7 +136,7 @@ class OrderDetails extends React.Component {
           <Divider />
           <span className={classes.OrderSpan} >
             <List className={classes.OrderTable}>
-              <MaterialSelect tableNumber={tableNumber} toTal={10} piece="號桌" placeholder="請選擇桌號..." handleChange={handleChange} />
+              <MaterialSelect tableNumber={tableNumber} defValue="外帶" startValue={["外帶", "外帶"]} toTal={10} piece="號桌" placeholder="請選擇桌號..." handleChange={handleChange} />
             </List>
             <List className={classes.OrderCount}>
               總價：  ${orderDetail.reduce(((Previous, NowValue) => Previous + NowValue.count * NowValue.price), 0)}

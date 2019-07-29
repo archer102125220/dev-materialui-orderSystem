@@ -30,10 +30,6 @@ const styles = theme => {
 
 class MenuList extends React.Component {
 
-    handleChange = (event, value) => {
-        this.props.TageIdChange(value);
-    };
-
     handleChangeIndex = index => {
         this.props.TageIdChange(index);
     };

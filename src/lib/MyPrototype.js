@@ -61,16 +61,18 @@ Math.CeilDecimal = function (value, amount) {//使 Math.ceil() 可依照 amount 
     return value;
 }
 Object.FilterByValue = function (obj, search) {//Object的 Array.filter() ，由於寫在prototype會造成react執行錯誤，故需以 Object.filter(物件,比對值) 呼叫
-    let RetArr = [];
+    let retArr = [];
     for (var key in obj) {
-        if (obj[key] === search) RetArr.push(obj[key]);
+        if (obj[key] === search) retArr.push(obj[key]);
     }
-    return RetArr;
+    // if (retArr.length === 0) console.log("not  defined");
+    return retArr;
 }
 Object.FilterByName = function (obj, search) {//Object的 Array.filter() ，由於寫在prototype會造成react執行錯誤，故需以 Object.filter(物件,比對值) 呼叫
-    let RetArr = [];
+    let retArr = [];
     for (var key in obj) {
-        if (obj[key] === search) RetArr.push(key);
+        if (obj[key] === search) retArr.push(key);
     }
-    return RetArr;
+    // if (retArr.length === 0) console.log("not defined");
+    return retArr;
 }
