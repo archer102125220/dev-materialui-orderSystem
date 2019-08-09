@@ -8,13 +8,17 @@ import AddCircle from '@material-ui/icons/AddCircle';
 import RemoveCircle from '@material-ui/icons/RemoveCircleOutline';
 
 const styles = theme => ({
+    root: {
+        height: 61,
+    },
     textField: {
+        margin: 0,
+        marginTop: theme.spacing.unit,
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        height: 25,
-        width: 100
+        maxWidth: 100
     },
-    textFieldPhone: {
+    textFieldMobile: {
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
@@ -22,13 +26,30 @@ const styles = theme => ({
         marginLeft: 0,
         marginRight: 0,
     },
+    textFieldPhone: {
+        transition: theme.transitions.create(['width', 'height', 'margin'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        margin: 2,
+        maxWidth: 80,
+
+    },
     button: {
-        height: 70
+        marginTop: theme.spacing.unit,
+        height: 61,
+    },
+    buttonPhone: {
+        transition: theme.transitions.create(['width', 'height', 'margin'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginTop: 0,
+        maxHeight: 61,
     },
 });
 
 class MaterialNumber extends React.Component {
-
     constructor() {
         super();
         this.state = {
@@ -68,21 +89,34 @@ class MaterialNumber extends React.Component {
             className,
         } = this.props;
 
+        const inputProps = {
+            classes: {
+                root: classes.root,
+            },
+        };
+
         return (
             <span>
-                <Button variant={buttonVariant} className={classes.button} onClick={e => { this.NumberInput(valueName, value - 1) }} ><RemoveCircle /></Button>
+                <Button variant={buttonVariant} className={classNames(classes.button, {
+                    [classes.buttonPhone]: this.state.isPhone,
+                }, className.addButton)} onClick={e => { this.NumberInput(valueName, value - 1) }} ><RemoveCircle /></Button>
                 <TextField
                     error={error}
                     label={label}
                     value={value}
                     className={classNames(classes.textField, {
-                        [classes.textFieldPhone]: this.state.isPhone,
-                    })}
+                        [classes.textFieldPhone]: (textMargin === "normal") && this.state.isPhone,
+                    }, className.TextField)}
                     margin={textMargin}
                     variant={textVariant}
-                    onChange={e => { this.NumberInput(valueName, e.target.value) }}
+                    onChange={e => {
+                        this.NumberInput(valueName, e.target.value)
+                    }}
+                    InputProps={inputProps}
                 />
-                <Button variant={buttonVariant} className={classes.button} onClick={e => { this.NumberInput(valueName, value + 1) }} ><AddCircle /></Button>
+                <Button variant={buttonVariant} className={classNames(classes.button, {
+                    [classes.buttonPhone]: this.state.isPhone,
+                }, className.lessButton)} onClick={e => { this.NumberInput(valueName, value + 1) }} ><AddCircle /></Button>
             </span>
         );
     }
@@ -90,6 +124,7 @@ class MaterialNumber extends React.Component {
 
 MaterialNumber.defaultProps = {
     value: 0,
+    className: {},
 }
 
 export default withStyles(styles)(MaterialNumber);

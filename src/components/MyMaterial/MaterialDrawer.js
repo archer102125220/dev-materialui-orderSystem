@@ -24,9 +24,10 @@ class MaterialDrawer extends React.Component {
             className,
             clickClose,
             keyDownClose,
-            myClasses
+            myClasses,
+            contentclass
         } = this.props;
-        
+        //Contentclass
         return (
             <Drawer className={className} classes={myClasses} anchor={anchor || "left"} variant={variant || "temporary"} open={open} onClose={toggleDrawer(anchor, false)}>
                 <div
@@ -36,7 +37,7 @@ class MaterialDrawer extends React.Component {
                     onClick={clickClose && toggleDrawer(anchor, false)}
                     onKeyDown={keyDownClose && toggleDrawer(anchor, false)}
                 >
-                    <div className={classNames(classes.list, anchor.match(/left||right/) && classes.RightLeft)}>
+                    <div className={classNames(classes.list, anchor.match(/left||right/) && classes.RightLeft, contentclass)}>
                         {this.props.children}
                     </div>
                 </div>

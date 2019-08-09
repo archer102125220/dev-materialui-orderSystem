@@ -43,8 +43,8 @@ class MaterialCancelComplete extends React.Component {
 }
 
 MaterialCancelComplete.defaultProps = {
-  cancel: "取消訂單",
-  complete: "加入訂單",
+  cancel: "取消",
+  complete: "確定",
   CancelActions: () => { },
   CompleteActions: () => { },
 }

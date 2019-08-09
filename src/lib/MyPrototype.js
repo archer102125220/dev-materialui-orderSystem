@@ -29,15 +29,15 @@ Array.prototype.RemoveByValue = function (removeValue) {
     return this.filter(val => val !== removeValue);
 };
 Array.prototype.ArrayComparison = function (searchArray) {
-    if (this.length === 0 || searchArray.length === 0) {
-        return this.length === searchArray.length;
-    } else {
-        return this.every(val =>
+    return (this.length === 0 || searchArray.length === 0) ?
+        this.length === searchArray.length
+        :
+        this.every(val =>
             searchArray.some(searchVal =>
                 val === searchVal
             )
         );
-    }
+
 };
 Math.RoundDecimal = function (value, amount) { //使 Math.round() 可依照 amount 的數值做進位
     var carry = 10;

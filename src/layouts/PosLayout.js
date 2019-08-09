@@ -8,17 +8,14 @@ import _ from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
 import Header from '../components/Header';
 import MenuBar from '../components/MenuBar';
-import MySnackbarContent from '../components/MyMaterial/MaterialSnackbarContent'; //material-ui官網上提供的封包好的訊息顯示組件，已修改成可自由傳入參數
-import PageChage from '../components/PageChage';
-import OrderEdit from '../components/OrderEdit';
-import MenuList from '../components/MenuList';
-import MenuDetail from '../components/MenuDetail';
+import OrderDetails from '../components/OrderDetails';
+import MaterialSnackbarContent from '../components/MyMaterial/MaterialSnackbarContent'; //material-ui官網上提供的封包好的訊息顯示組件，已修改成可自由傳入參數
 
 const OrderDetailsWidth = 280;
 
 const styles = theme => {
   return ({
-    PosHome: {
+    PosLayout: {
       width: "100%",
       height: "100%",
       float: "left",
@@ -61,16 +58,13 @@ const styles = theme => {
   })
 };
 
-class PosHome extends React.Component {
+class PosLayout extends React.Component {
   constructor() {
     super();
     this.state = {
       open: false,
-      variant: "success",
-      message: "送單成功！",
       left: false,
       right: false,
-      isMobile: false,
     }
   }
 
@@ -90,10 +84,6 @@ class PosHome extends React.Component {
     this.setState({ open: false });
   };
 
-  SetState = (state) => {
-    this.setState(state);
-  }
-
   toggleDrawer = (anchor, open) => () => {
     this.setState({
       [anchor]: open,
@@ -103,70 +93,88 @@ class PosHome extends React.Component {
   render() {
     const {
       classes,
-      SetItems,
-      MenuDetailOpen,
-      MenuDetailStateChange,
-      MenuSelectItemChange,
-      MenuSelectItem,
       MenuItems,
       Tageid,
       TageIdChange,
+      OrderDetail,
+      tableNumber,
+      VATNumber,
       OrderDetailsOpen,
       OrderDetailsStateChange,
-      OrderSelectItemChange,
-      OrderSelectItem,
-      OrderDetail,
-      OderEditOpen,
       OderEditStateChange,
+      OrderSelectItemChange,
       SetOrders,
       PATCH_Orders,
-      tableNumber,
       SelectTableNumber,
-      VATNumber,
       SetVATNumber,
-      right,
-      isMobile,
-      left,
     } = this.props;
-    
+
     return (
-      <div className={classNames(classes.main, {
-        [classes.contentShift]: (this.state.right && !this.state.isMobile) ? true : false,
-      })}>
-        <MenuList
-          menuItems={MenuItems}
+      <div className={classes.PosLayout}>
+        <Header
           tageid={Tageid}
           TageIdChange={TageIdChange}
-          open={MenuDetailOpen}
-          StateChange={MenuDetailStateChange}
-          MenuSelectItemChange={MenuSelectItemChange}
-          isMobile={this.state.isMobile}
-        />
-
-        <MenuDetail
-          SetItems={SetItems}
-          open={MenuDetailOpen}
-          StateChange={MenuDetailStateChange}
           menuItems={MenuItems}
-          Item={MenuSelectItem}
-          SetOrders={SetOrders}
+          toggleDrawer={this.toggleDrawer}
+          className={{
+            header: {
+              root: classNames(classes.header, {
+                [classes.contentShift]: (this.state.right && !this.state.isMobile) ? true : false,
+              }),
+            }
+          }}
+          right={this.state.right}
+          isMobile={this.state.isMobile}
+          centered={true}
+        />
+        <MenuBar
+          tageid={Tageid}
+          TageIdChange={TageIdChange}
+          menuItems={MenuItems}
+          toggleDrawer={this.toggleDrawer}
+          className={{
+            header: {
+              root: classNames({
+                [classes.contentShift]: (this.state.right && !this.state.isMobile) ? true : false,
+              }),
+            }
+          }}
+          right={this.state.right}
           isMobile={this.state.isMobile}
         />
 
-        <OrderEdit
-          open={OderEditOpen}
+        <div className={classNames(classes.main, {
+          [classes.contentShift]: (this.state.right && !this.state.isMobile) ? true : false,
+        })}>
+          {this.props.children}
+        </div>
+
+        <OrderDetails
+          open={OrderDetailsOpen}
           menuItems={MenuItems}
           orderDetail={OrderDetail}
-          StateChange={OderEditStateChange}
-          Item={OrderSelectItem}
+          OrderDetailsStateChange={OrderDetailsStateChange}
+          OderEditStateChange={OderEditStateChange}
+          OrderSelectItemChange={OrderSelectItemChange}
           SetOrders={SetOrders}
+          PATCH_Orders={PATCH_Orders}
+          SetState={this.SetState}
+          handleChange={SelectTableNumber}
+          tableNumber={tableNumber}
+          toggleDrawer={this.toggleDrawer}
+          right={this.state.right}
           isMobile={this.state.isMobile}
+          VATNumber={VATNumber}
+          SetVATNumber={SetVATNumber}
+          contentclass={classes.contentclass}
         />
 
-        <PageChage
-          open={this.state.left}
-          toggleDrawer={this.toggleDrawer} />
-
+        <MaterialSnackbarContent
+          open={this.state.open}
+          variant="success"
+          message="送單成功！"
+          handleClose={this.handleClose}
+        />
       </div>
     );
   }
@@ -199,4 +207,4 @@ const mapDispatchToProps = (dispatch) => ({
   SetVATNumber: (payload) => dispatch({ type: 'order/SetVATNumber', payload }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PosHome));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PosLayout));

@@ -1,4 +1,6 @@
 import React from 'react';
+import { enquireScreen } from 'enquire-js';
+import classNames from 'classNames';
 import { withStyles } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -15,7 +17,32 @@ const styles = theme => ({
             color: green[500],
         },
     },
+    rootMobile: {
+        visibility: 'hidden',
+    },
+    labelMobilechecked: {
+        backgroundColor: green[600],
+        padding: 12,
+        color: '#fff',
+        borderRadius: 10,
+        opacity: 1,
+        transition: theme.transitions.create('opacity', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
     checked: {},
+    label: {
+        backgroundColor: green[600],
+        padding: 12,
+        color: '#fff',
+        borderRadius: 10,
+        opacity: 0.5,
+        transition: theme.transitions.create('opacity', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
     formControl: {
         margin: theme.spacing.unit * 3,
     },
@@ -26,14 +53,26 @@ const styles = theme => ({
 });
 
 class MaterialRadio extends React.Component {
-    state = {
-    };
+    constructor() {
+        super();
+        this.state = {
+            isMobile: false,
+        }
+    }
 
     handleChange = (valueName, name) => e => {
         this.setState({ [name]: e.target.value }, () => {
             this.props.ChangeValue({ [valueName]: this.state[name] });
         });
     };
+
+    componentDidMount = () => {
+        this.enquireHandler = enquireScreen(mobile => {
+            this.setState({
+                isMobile: mobile ? true : false,
+            });
+        }, "(max-width: 1024px)");
+    }
 
     componentWillMount() {
         const { CheckValue, DefCheck } = this.props;
@@ -47,7 +86,7 @@ class MaterialRadio extends React.Component {
             label,
             valueName,
         } = this.props;
-        const { CheckName, value } = this.state;
+        const { CheckName, value, isMobile } = this.state;
         return (
             <div>
                 <FormControl component="fieldset" className={classes.formControl}>
@@ -64,11 +103,22 @@ class MaterialRadio extends React.Component {
                                 CheckName.map((val, ind) => <FormControlLabel
                                     key={ind}
                                     value={val}
+                                    classes={
+                                        {
+                                            label: this.state.value === val && isMobile ?
+                                                classes.labelMobilechecked :
+                                                isMobile ?
+                                                    classes.label :
+                                                    "",
+                                        }
+                                    }
                                     control={
                                         <Radio
                                             classes={
                                                 {
-                                                    root: classes.root,
+                                                    root: classNames(classes.root, {
+                                                        [classes.rootMobile]: isMobile,
+                                                    }),
                                                     checked: classes.checked,
                                                 }
                                             }

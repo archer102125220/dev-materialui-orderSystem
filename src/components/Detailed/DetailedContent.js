@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import DetailedTable from './DetailedTable';
-import DetailedExpansionPanel from './DetailedExpansionPanel';
+import ItemExpansionPanel from '../ItemExpansionPanel';
 
 
 const styles = theme => ({
@@ -57,7 +57,7 @@ class DetailedContent extends React.Component {
                 }
                 {
                     isMobile ?
-                        <DetailedExpansionPanel
+                        <ItemExpansionPanel
                             orderDetail={orderDetail}
                             orderHeader={orderHeader}
                             SetOrders={SetOrders}

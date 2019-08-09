@@ -10,11 +10,10 @@ import Header from '../components/Header';
 import MenuBar from '../components/MenuBar';
 import MySnackbarContent from '../components/MyMaterial/MaterialSnackbarContent'; //material-ui官網上提供的封包好的訊息顯示組件，已修改成可自由傳入參數
 import PageChage from '../components/PageChage';
+import OrderDetails from '../components/OrderDetails';
 import OrderEdit from '../components/OrderEdit';
 import MenuList from '../components/MenuList';
 import MenuDetail from '../components/MenuDetail';
-
-const OrderDetailsWidth = 280;
 
 const styles = theme => {
   return ({
@@ -46,10 +45,7 @@ const styles = theme => {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      width: "calc(100% - " + OrderDetailsWidth + "px)",
-    },
-    contentclass: {
-      width: OrderDetailsWidth + "px",
+      width: "calc(100% - 260px)",
     },
     header: {
       transition: theme.transitions.create('width', {
@@ -75,7 +71,7 @@ class PosHome extends React.Component {
   }
 
   componentDidMount = () => {
-    // enquire-js參考文件  https://github.com/alibaba/ice/wiki/%E5%93%8D%E5%BA%94%E5%BC%8F%E6%96%B9%E6%A1%88
+    //enquire-js參考文件  https://github.com/alibaba/ice/wiki/%E5%93%8D%E5%BA%94%E5%BC%8F%E6%96%B9%E6%A1%88
     this.enquireHandler = enquireScreen(mobile => {
       this.setState({
         isMobile: mobile ? true : false,
@@ -87,6 +83,7 @@ class PosHome extends React.Component {
     if (reason === 'clickaway') {
       return;
     }
+
     this.setState({ open: false });
   };
 
@@ -103,70 +100,14 @@ class PosHome extends React.Component {
   render() {
     const {
       classes,
-      SetItems,
-      MenuDetailOpen,
-      MenuDetailStateChange,
-      MenuSelectItemChange,
-      MenuSelectItem,
       MenuItems,
       Tageid,
       TageIdChange,
-      OrderDetailsOpen,
-      OrderDetailsStateChange,
-      OrderSelectItemChange,
-      OrderSelectItem,
-      OrderDetail,
-      OderEditOpen,
-      OderEditStateChange,
-      SetOrders,
-      PATCH_Orders,
-      tableNumber,
-      SelectTableNumber,
-      VATNumber,
-      SetVATNumber,
-      right,
-      isMobile,
-      left,
     } = this.props;
-    
+
     return (
-      <div className={classNames(classes.main, {
-        [classes.contentShift]: (this.state.right && !this.state.isMobile) ? true : false,
-      })}>
-        <MenuList
-          menuItems={MenuItems}
-          tageid={Tageid}
-          TageIdChange={TageIdChange}
-          open={MenuDetailOpen}
-          StateChange={MenuDetailStateChange}
-          MenuSelectItemChange={MenuSelectItemChange}
-          isMobile={this.state.isMobile}
-        />
-
-        <MenuDetail
-          SetItems={SetItems}
-          open={MenuDetailOpen}
-          StateChange={MenuDetailStateChange}
-          menuItems={MenuItems}
-          Item={MenuSelectItem}
-          SetOrders={SetOrders}
-          isMobile={this.state.isMobile}
-        />
-
-        <OrderEdit
-          open={OderEditOpen}
-          menuItems={MenuItems}
-          orderDetail={OrderDetail}
-          StateChange={OderEditStateChange}
-          Item={OrderSelectItem}
-          SetOrders={SetOrders}
-          isMobile={this.state.isMobile}
-        />
-
-        <PageChage
-          open={this.state.left}
-          toggleDrawer={this.toggleDrawer} />
-
+      <div className={classes.PosHome}>
+        MenuEdit
       </div>
     );
   }

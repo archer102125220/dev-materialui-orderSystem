@@ -17,3 +17,5 @@ app.router(require('./router').default);
 
 // 5. Start
 app.start('#root');
+
+// console.clear();

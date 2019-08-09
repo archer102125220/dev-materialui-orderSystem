@@ -4,7 +4,7 @@ import key from 'keymaster';
 
 export default {
 
-  namespace: 'order',
+  namespace: 'header',
 
   state: {
     detailsOpen: false,
@@ -104,7 +104,6 @@ export default {
         payload.action = "";
         order = payload;
       }
-      console.log(order)
       return {
         ...state,
         order

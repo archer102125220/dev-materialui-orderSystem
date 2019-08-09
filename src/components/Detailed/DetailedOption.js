@@ -12,12 +12,13 @@ const styles = theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
+        paddingLeft: 5,
     },
-    root:{
+    root: {
         //transitions動畫特效用
     },
     containerMobile: {
-        transition: theme.transitions.create('padding', {
+        transition: theme.transitions.create(['width','padding'], {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
@@ -25,28 +26,27 @@ const styles = theme => ({
         paddingRight: 14,
     },
     containerPhone: {
-        transition: theme.transitions.create('padding', {
+        transition: theme.transitions.create(['width','padding'], {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
         paddingLeft: 0,
         paddingRight: 0,
     },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        height: 25,
-        width: 100
-    },
-    button: {
-        height: 70
-    },
-    span: {
-        float: 'right',
-        width: "50%"
-    },
     contentText: {
-        width: "50%"
+        transition: theme.transitions.create(['width','margin'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        width: "50%",
+    },
+    contentTextPhone: {
+        transition: theme.transitions.create(['width','margin'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        width: 'unset',
+        marginBottom: 8,
     },
     checkbox: {
         maxWidth: "650px"
@@ -98,12 +98,16 @@ class DetailedOption extends React.Component {
         const { count, isPhone } = this.state;
         const error = count === 0;
         return (
-            <DialogContent classes={{ root: classNames(classes.root, {
-                [classes.containerMobile]: isMobile,
-                [classes.containerPhone]: this.state.isPhone,
-            }) }}>
+            <DialogContent classes={{
+                root: classNames({
+                    [classes.containerMobile]: isMobile,
+                    [classes.containerPhone]: this.state.isPhone,
+                })
+            }}>
                 <div className={classes.container}>
-                    <DialogContentText className={classes.contentText}>
+                    <DialogContentText className={classNames(classes.contentText, {
+                        [classes.contentTextPhone]: this.state.isPhone,
+                    })}>
                         {description}
                     </DialogContentText>
                     <MaterialNumber
@@ -118,9 +122,9 @@ class DetailedOption extends React.Component {
                         isPhone={isPhone}
                     />
                 </div>
-                <MaterialRadio label="請選擇特需..." CheckValue={types} DefCheck={ItemClass} valueName="class" ChangeValue={this.SetStates} />
-                <MaterialCheckbox className={classes.checkbox} label="請選擇類型..." CheckValue={special} DefCheck={ItemSpecial} valueName="special" ChangeValue={this.SetStates} />
-            </DialogContent >
+                <MaterialRadio label="請選擇類型..." CheckValue={types} DefCheck={ItemClass} valueName="class" ChangeValue={this.SetStates} />
+                <MaterialCheckbox className={classes.checkbox} label="請選擇特需..." CheckValue={special} DefCheck={ItemSpecial} valueName="special" ChangeValue={this.SetStates} />
+            </DialogContent>
         );
     }
 }

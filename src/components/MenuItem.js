@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classNames';
 import { enquireScreen } from 'enquire-js';
+import grey from '@material-ui/core/colors/grey';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -10,10 +11,12 @@ import Typography from '@material-ui/core/Typography';
 
 import phe from "./../assets/EiPCT.jpg";
 import usaBreakfast from "./../assets/usaBreakfast.jpg";
+import defaultImg from "./../assets/defaultImg.png";
 
 const styles = theme => ({
     card: {
-        width: 345,
+        width: 300,
+        height: 300,
         margin: theme.spacing.unit + 5,
         float: "inherit",
         transition: theme.transitions.create('margin', {
@@ -22,37 +25,73 @@ const styles = theme => ({
         }),
     },
     media: {
-        height: 140,
+        height: "70%",
     },
     MenuItemBody: {
         float: "left",
         height: '100%',
+        width: "92%",
         marginLeft: "2%",
+        backgroundColor: grey[150],
     },
     MenuItemBodyMobile: {
-        transition: theme.transitions.create('margin', {
+        transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        marginLeft: 0,
+        marginLeft: "1.2%",
+        width: "100%",
     },
     cardMobile: {
-        transition: theme.transitions.create('margin', {
+        transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
         marginLeft: "2.5%",
+        width: 150,
+        height: 150,
     },
     cardPhone: {
-        transition: theme.transitions.create('padding', {
+        transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
         marginLeft: 0,
-        marginRight: 0,
+        marginRight: 10,
     },
+    cardActionArea: {
+        height: '100%',
+    },
+    mediaMobile: {
+        height: "60%",
+        transition: theme.transitions.create('height', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
+    mediaPhone: {
+        height: "50%",
+        transition: theme.transitions.create('height', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
+    cardContentPhone: {
+        transition: theme.transitions.create('padding', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        paddingTop: 5,
+    },
+    cardContentMobile: {
+        transition: theme.transitions.create('padding', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        paddingTop: 1,
+    }
 });
-//margin-left: 0px;
+//    paddingTop
 class MenuItem extends React.Component {
     constructor() {
         super();
@@ -97,7 +136,7 @@ class MenuItem extends React.Component {
                                 val = { ...val, src: usaBreakfast };
                                 break;
                             default:
-                                val = { ...val };
+                                val = { ...val, src: defaultImg };
                         }
                         val.special = [];
                         val.class = [];
@@ -109,21 +148,35 @@ class MenuItem extends React.Component {
                             [classes.cardMobile]: isMobile,
                             [classes.cardPhone]: this.state.isPhone,
                         })}>
-                            <CardActionArea onClick={() => {
-                                StateChange(true);
-                                SelectItemChange(val);
-                            }}>
-                                {
-                                    val.src !== "" &&
-                                    <CardMedia
-                                        component="img"
-                                        alt={val.name}
-                                        className={classes.media}
-                                        image={val.src}
-                                        title={val.name}
-                                    />
+                            <CardActionArea
+                                classes={
+                                    {
+                                        root: classes.cardActionArea,
+                                    }
                                 }
-                                <CardContent>
+                                onClick={() => {
+                                    StateChange(true);
+                                    SelectItemChange(val);
+                                }}>
+                                <CardMedia
+                                    component="img"
+                                    alt={val.name}
+                                    className={classNames(classes.media, {
+                                        [classes.mediaMobile]: isMobile,
+                                        [classes.mediaPhone]: this.state.isPhone,
+                                    })}
+                                    image={val.src}
+                                    title={val.name}
+                                />
+                                <CardContent
+                                    classes={
+                                        {
+                                            root: classNames({
+                                                [classes.cardContentMobile]: isMobile,
+                                                [classes.cardContentPhone]: this.state.isPhone,
+                                            })
+                                        }
+                                    }>
                                     <Typography gutterBottom variant="h5" component="h2">
                                         {val.name}
                                     </Typography>

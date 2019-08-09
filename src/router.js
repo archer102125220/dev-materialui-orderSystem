@@ -1,13 +1,19 @@
 import React from 'react';
-import { Router, Route, Switch } from 'dva/router';
+import { Router, Route, Switch, Redirect } from 'dva/router';
 import PosHome from './routes/PosHome';
+import MenuEdit from './routes/MenuEdit';
+import LayoutSwitch from './routes/LayoutSwitch';
 
-function RouterConfig({ history }) {
-  const state = {
-    routeComponent: [
-      { key: 'root', path: '/', exact: true, component: PosHome },
-    ],
-  }
+
+const RouterConfig = ({ history }) => {
+  const routeComponent = [
+    { key: 'root', path: '/pos', exact: true, component: PosHome },
+    { key: 'menu_edit', path: '/admin/menu_edit', exact: true, component: MenuEdit },
+  ];
+  const redirectComponent = [
+    { key: 'root', to: "/pos", From: "/" },
+  ];
+
 
   const renderRoutes = (r) => {
     const { key, exact, path, component: Component } = r;
@@ -20,13 +26,28 @@ function RouterConfig({ history }) {
       />
     );
   }
-
+  const renderRedirects = (r) => {
+    const { key, to, From } = r;
+    return (
+      <Redirect
+        key={`redirect-${key}`}
+        from={From}
+        to={to}
+      />
+    );
+  }
+  //<Redirect from={From} to={`${this.props.match.url}/his`} />
   return (
     <Router history={history}>
       <Switch>
-        {
-          state.routeComponent.map(value => renderRoutes(value))
-        }
+        <LayoutSwitch>
+          {
+            routeComponent.map(value => renderRoutes(value))
+          }
+          {
+            redirectComponent.map(value => renderRedirects(value))
+          }
+        </LayoutSwitch>
       </Switch>
     </Router>
   );

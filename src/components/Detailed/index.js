@@ -126,6 +126,9 @@ class Detailed extends React.Component {
       CompleteActions = () => {
         StateChange(false);
         if (clear === false) {
+          if (edit === true) {
+            tempItem.key = Item.key;
+          }
           SetOrders(tempItem);
         } else {
           orders.tableNumber = tableNumber;
@@ -134,7 +137,7 @@ class Detailed extends React.Component {
           SetState({ open: true, variant: "success", message: "送單成功！" });
         }
       };
-      
+
     return (
       <CustomDialog open={open} aria-labelledby="form-dialog-title" >
         <DialogTitle id="form-dialog-title">{name}</DialogTitle>
@@ -165,7 +168,7 @@ class Detailed extends React.Component {
             />
         }
 
-        <MaterialCancelComplete cancel={cancel} complete={complete} disabled={clear===true && orders.length === 0} CancelActions={CancelActions} CompleteActions={CompleteActions} />
+        <MaterialCancelComplete cancel={cancel} complete={complete} disabled={clear === true && orders.length === 0} CancelActions={CancelActions} CompleteActions={CompleteActions} />
       </CustomDialog>
     );
   }
